@@ -1,5 +1,6 @@
-# Kinect Head Tracking
-Tracks your head position via Kinect and adjusts the rendered perspective.
+# Augmented Magic Mirror
+
+A Magic Mirror that displays/projects 3D objects into the mirror image.
 
 ## Requirements
 

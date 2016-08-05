@@ -1,4 +1,4 @@
-// KinectHeadTracking.cpp : Wrapper around the Kinect to get the Face/Eye Position
+// HeadTracker.cpp : Wrapper around the Kinect to get the Face/Eye Position
 //
 
 #include "stdafx.h"

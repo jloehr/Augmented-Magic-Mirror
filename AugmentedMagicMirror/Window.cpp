@@ -21,7 +21,7 @@ void Window::Create(_In_ HINSTANCE Instance)
 
 	WindowHandle = CreateWindow(
 		WindowClassName.c_str(),
-		L"Kinect Head Tracking",
+		L"Augmented Magic Mirror",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		0,

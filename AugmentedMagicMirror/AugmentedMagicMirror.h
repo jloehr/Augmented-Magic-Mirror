@@ -11,10 +11,10 @@
 #include "Model.h"
 #include "Transform.h"
 
-class KinectHeadTracking
+class AugmentedMagicMirror
 {
 public:
-	KinectHeadTracking(_In_ HINSTANCE Instance);
+	AugmentedMagicMirror(_In_ HINSTANCE Instance);
 
 	int Run(_In_ int nCmdShow);
 

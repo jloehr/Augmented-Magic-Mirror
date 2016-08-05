@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "KinectHeadTracking.h"
+#include "AugmentedMagicMirror.h"
 
 int WINAPI wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -12,7 +12,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-	KinectHeadTracking App(hInstance);
+	AugmentedMagicMirror App(hInstance);
 
 	return App.Run(nCmdShow);
 }

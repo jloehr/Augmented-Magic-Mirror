@@ -1,12 +1,12 @@
-// KinectHeadTracking.cpp : Defines the application class.
+// AugmentedMagicMirror.cpp : Defines the application class.
 //
 
 #include "stdafx.h"
-#include "KinectHeadTracking.h"
+#include "AugmentedMagicMirror.h"
 
 #include "SettingsFile.h"
 
-KinectHeadTracking::KinectHeadTracking(_In_ HINSTANCE Instance)
+AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
 	:Instance(Instance), Window(Renderer), Renderer(GraphicsDevice, Window, FCamera), HeadTracker(FCamera, SettingsFile::Kinect::GetKinectOffset())
 	,CubeModel(GraphicsDevice)
 	,DCamera(Vector3(0.0f, 0.0f, 50.0f))
@@ -33,7 +33,7 @@ KinectHeadTracking::KinectHeadTracking(_In_ HINSTANCE Instance)
 	};
 }
 
-int KinectHeadTracking::Run(_In_ int CmdShow)
+int AugmentedMagicMirror::Run(_In_ int CmdShow)
 {
 	Initialize(CmdShow);
 
@@ -56,7 +56,7 @@ int KinectHeadTracking::Run(_In_ int CmdShow)
 	return static_cast<int>(Message.wParam);
 }
 
-void KinectHeadTracking::Initialize(_In_ int CmdShow)
+void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
 {
 	Window.Create(Instance);
 
@@ -69,7 +69,7 @@ void KinectHeadTracking::Initialize(_In_ int CmdShow)
 	Window.Show(CmdShow);
 }
 
-void KinectHeadTracking::Release()
+void AugmentedMagicMirror::Release()
 {
 	GraphicsDevice.Release(); 
 	HeadTracker.Release();

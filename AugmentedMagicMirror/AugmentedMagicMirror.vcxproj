@@ -21,9 +21,9 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07444E95-4F56-4FE0-A787-7A7015D1D24A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>KinectHeadTracking</RootNamespace>
+    <RootNamespace>AugmentedMagicMirror</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.10586.0</WindowsTargetPlatformVersion>
-    <ProjectName>KinectHeadTracking</ProjectName>
+    <ProjectName>AugmentedMagicMirror</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -182,7 +182,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClInclude Include="GPUFence.h" />
     <ClInclude Include="GraphicsContext.h" />
     <ClInclude Include="HeadTracker.h" />
-    <ClInclude Include="KinectHeadTracking.h" />
+    <ClInclude Include="AugmentedMagicMirror.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Renderer.h" />
@@ -202,7 +202,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClCompile Include="GPUFence.cpp" />
     <ClCompile Include="GraphicsContext.cpp" />
     <ClCompile Include="HeadTracker.cpp" />
-    <ClCompile Include="KinectHeadTracking.cpp" />
+    <ClCompile Include="AugmentedMagicMirror.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -227,7 +227,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="KinectHeadTracking.rc" />
+    <ResourceCompile Include="AugmentedMagicMirror.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Settings.ini">
