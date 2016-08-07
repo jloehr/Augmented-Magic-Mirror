@@ -3,6 +3,7 @@
 #include "MainWindow.h"
 #include "GraphicsContext.h"
 #include "Renderer.h"
+#include "Kinect.h"
 #include "HeadTracker.h"
 
 #include "DirectionalFoVCamera.h"
@@ -24,6 +25,7 @@ private:
 	MainWindow Window;
 	GraphicsContext GraphicsDevice;
 	Renderer Renderer;
+	Kinect Kinect;
 	HeadTracker HeadTracker;
 
 	DirectionalFoVCamera DCamera;

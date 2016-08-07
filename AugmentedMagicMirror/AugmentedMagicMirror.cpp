@@ -7,7 +7,8 @@
 #include "SettingsFile.h"
 
 AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
-	:Instance(Instance), Window(Renderer), Renderer(GraphicsDevice, Window, FCamera), HeadTracker(FCamera, SettingsFile::Kinect::GetKinectOffset())
+	:Instance(Instance), Window(Renderer), Renderer(GraphicsDevice, Window, FCamera)
+	,Kinect(SettingsFile::Kinect::GetKinectOffset()), HeadTracker(FCamera, Kinect)
 	,CubeModel(GraphicsDevice)
 	,DCamera(Vector3(0.0f, 0.0f, 50.0f))
 	,FCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
@@ -46,7 +47,7 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 			DispatchMessage(&Message);
 		}
 
-		HeadTracker.Update();
+		Kinect.Update();
 		Renderer.Render({ Renderer::RenderParameter(CubeModel, Cubes) });
 
 	} while (Message.message != WM_QUIT);
@@ -64,7 +65,7 @@ void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
 	Renderer.Initialize();
 	CubeModel.Create();
 
-	HeadTracker.Initialize();
+	Kinect.Initialize();
 
 	Window.Show(CmdShow);
 }
@@ -72,5 +73,5 @@ void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
 void AugmentedMagicMirror::Release()
 {
 	GraphicsDevice.Release(); 
-	HeadTracker.Release();
+	Kinect.Release();
 }

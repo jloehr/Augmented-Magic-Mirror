@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
@@ -95,14 +95,17 @@
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="AugmentedMagicMirror .h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HeadTracker.h">
       <Filter>Header Files\Kinect</Filter>
     </ClInclude>
     <ClInclude Include="SettingsFile.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AugmentedMagicMirror.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Kinect.h">
+      <Filter>Header Files\Kinect</Filter>
     </ClInclude>
     <ClInclude Include="Callback.h">
       <Filter>Header Files\Utility</Filter>
@@ -159,6 +162,9 @@
     </ClCompile>
     <ClCompile Include="SettingsFile.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Kinect.cpp">
+      <Filter>Source Files\Kinect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
