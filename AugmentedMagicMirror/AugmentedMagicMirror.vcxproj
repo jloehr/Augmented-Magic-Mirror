@@ -178,6 +178,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="d3dx12.h" />
     <ClInclude Include="DirectionalFoVCamera.h" />
+    <ClInclude Include="Callback.h" />
     <ClInclude Include="FrameCamera.h" />
     <ClInclude Include="GPUFence.h" />
     <ClInclude Include="GraphicsContext.h" />

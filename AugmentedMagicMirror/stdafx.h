@@ -25,5 +25,6 @@
 #include <sstream>
 #include <array>
 #include <vector>
+#include <functional>
 
 #include "Utility.h"
