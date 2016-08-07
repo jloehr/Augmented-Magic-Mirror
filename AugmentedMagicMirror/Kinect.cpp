@@ -198,7 +198,7 @@ void Kinect::HighDefinitionFaceFrameRecieved(WAITABLE_HANDLE EventHandle)
 {
 	if (UpdateFaceModel(GetFaceFrame(EventHandle)))
 	{
-		FaceModelUpdated(FaceVertices);
+		FaceModelUpdated(FaceVertices, Offset, RealWorldToVirutalScale);
 	}
 }
 

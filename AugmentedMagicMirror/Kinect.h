@@ -16,7 +16,7 @@ public:
 	const Vector3 & GetOffset() const;
 	float GetRealWorldToVirutalScale() const;
 
-	Callback<CameraSpacePointList> FaceModelUpdated;
+	Callback<CameraSpacePointList, Vector3, float> FaceModelUpdated;
 	
 private:
 	typedef void(Kinect::*EventCallback)(WAITABLE_HANDLE EventHandle);

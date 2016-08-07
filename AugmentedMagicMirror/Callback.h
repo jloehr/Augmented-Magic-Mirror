@@ -1,18 +1,20 @@
 #pragma once
 
-template <typename CallbackArgument>
+template <typename ... CallbackArguments>
 class Callback
 {
-	template <typename Class>
-	using CallbackMethod = void (Class::*)(const CallbackArgument &);
+	//using Test = const CallbackArguments & ...;
 
-	typedef std::function<void(const CallbackArgument &)> CallbackFunction;
+	template <typename Class>
+	using CallbackMethod = void (Class::*)(const CallbackArguments & ...);
+
+	typedef std::function<void(const CallbackArguments & ...)> CallbackFunction;
 
 public:
 	template <typename Class>
 	void AddCallback(Class * Listener, CallbackMethod<Class> ListenerMethod) 
 	{
-		Callbacks.push_back([=](const CallbackArgument & Argument) { (Listener->*ListenerMethod)(Argument); });
+		Callbacks.push_back([=](const CallbackArguments & ... Arguments) { (Listener->*ListenerMethod)(Arguments...); });
 	}
 
 	template <typename Class>
@@ -21,11 +23,11 @@ public:
 		AddCallback(Callback.first, Callback.second);
 	}
 
-	void operator()(const CallbackArgument & Argument)
+	void operator()(const CallbackArguments & ... Arguments)
 	{
 		for (auto & Callback : Callbacks)
 		{
-			Callback(Argument);
+			Callback(Arguments...);
 		}
 	}
 

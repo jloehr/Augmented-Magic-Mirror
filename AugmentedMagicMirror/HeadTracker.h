@@ -13,6 +13,6 @@ private:
 	Camera & BoundCamera;
 	Kinect & Kinect;
 
-	void FaceModelUpdatedCallback(const Kinect::CameraSpacePointList & FaceVertices);
+	void FaceModelUpdatedCallback(const Kinect::CameraSpacePointList & FaceVertices, const Vector3 & Offset, const float & RealWorldToVirutalScale);
 };
 
