@@ -8,6 +8,7 @@
 
 class GraphicsContext;
 class Camera;
+class RenderingContext;
 class Mesh;
 
 class RenderContext
@@ -17,7 +18,9 @@ public:
 
 	void Initialize();
 
-	typedef std::pair<Mesh &, const TransformList &> RenderParameter;
+	typedef std::pair<Mesh &, const TransformList &> ObjectList;
+	typedef std::vector<ObjectList> MeshList;
+	typedef std::pair<RenderingContext &, MeshList> RenderParameter;
 	typedef std::vector<RenderParameter> RenderParameterList;
 	void Render(_In_ RenderParameterList Cubes);
 

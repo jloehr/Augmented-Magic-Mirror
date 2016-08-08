@@ -188,6 +188,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="RenderContext.h" />
+    <ClInclude Include="RenderingContext.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SettingsFile.h" />
@@ -210,6 +211,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="RenderContext.cpp" />
+    <ClCompile Include="RenderingContext.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="SettingsFile.cpp" />
     <ClCompile Include="stdafx.cpp">

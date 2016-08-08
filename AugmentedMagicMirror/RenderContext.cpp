@@ -6,6 +6,7 @@
 
 #include "GraphicsContext.h"
 #include "Camera.h"
+#include "RenderingContext.h"
 #include "Mesh.h"
 
 RenderContext::RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ ::Camera & Camera)
@@ -186,9 +187,14 @@ void RenderContext::Render(_In_ RenderParameterList ObjectsToRender)
 	CommandList->RSSetViewports(1, &Viewport);
 	CommandList->RSSetScissorRects(1, &ScissorRect);
 
-	for (RenderParameter & Model : ObjectsToRender)
+	for (RenderParameter & RenderCommand : ObjectsToRender)
 	{
-		Model.first.Render(CommandList, Camera, Model.second);
+		RenderCommand.first.Prepare(CommandList, Camera);
+
+		for (ObjectList & Mesh : RenderCommand.second)
+		{
+			Mesh.first.Render(CommandList, RenderCommand.first, Mesh.second);
+		}
 	}
 
 	CurrentRenderTarget.EndFrame(CommandList, DeviceContext.GetCommandQueue());

@@ -9,6 +9,7 @@
 #include "DirectionalFoVCamera.h"
 #include "FrameCamera.h"
 
+#include "RenderingContext.h"
 #include "Mesh.h"
 #include "Transform.h"
 
@@ -24,13 +25,14 @@ private:
 
 	MainWindow Window;
 	GraphicsContext GraphicsDevice;
-	RenderContext Renderer;
+	RenderContext RenderContext;
 	Kinect Kinect;
 	HeadTracker HeadTracker;
 
 	DirectionalFoVCamera DCamera;
 	FrameCamera FCamera;
 
+	RenderingContext RenderingContext;
 	Mesh CubeModel;
 	TransformList Cubes;
 
