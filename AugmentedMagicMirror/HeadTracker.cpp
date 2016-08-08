@@ -6,13 +6,13 @@
 
 #include "Camera.h"
 
-HeadTracker::HeadTracker(Camera & Camera, ::Kinect & Kinect)
+HeadTracker::HeadTracker(_In_ Camera & Camera, _In_ ::Kinect & Kinect)
 	:BoundCamera(Camera), Kinect(Kinect)
 {
 	Kinect.FaceModelUpdated += std::make_pair(this, &HeadTracker::FaceModelUpdatedCallback);
 }
 
-void HeadTracker::FaceModelUpdatedCallback(const Kinect::CameraSpacePointList & FaceVertices, const Vector3 & Offset, const float & RealWorldToVirutalScale)
+void HeadTracker::FaceModelUpdatedCallback(_In_ const Kinect::CameraSpacePointList & FaceVertices, _In_ const Vector3 & Offset, _In_ const float & RealWorldToVirutalScale)
 {	
 	const CameraSpacePoint & NoseTop = FaceVertices[HighDetailFacePoints_NoseTop];
 

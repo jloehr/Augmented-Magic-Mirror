@@ -9,10 +9,10 @@ class RenderingContext;
 class Mesh
 {
 public:
-	Mesh(GraphicsContext & DeviceContext);
+	Mesh(_In_ GraphicsContext & DeviceContext);
 
 	void Create();
-	void Render(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, RenderingContext & RenderingContext, const TransformList & Objects);
+	void Render(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ RenderingContext & RenderingContext, _In_ const TransformList & Objects);
 
 private:
 	struct Vertex

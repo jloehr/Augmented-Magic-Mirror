@@ -6,11 +6,11 @@ class Camera;
 class RenderingContext
 {
 public:
-	RenderingContext(GraphicsContext & DeviceContext);
+	RenderingContext(_In_ GraphicsContext & DeviceContext);
 
 	void Create();
-	void Prepare(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, Camera & Camera);
-	void SetObjectMatrix(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, const DirectX::XMFLOAT4X4 & ObjectMatrix);
+	void Prepare(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ const Camera & Camera);
+	void SetObjectMatrix(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ const DirectX::XMFLOAT4X4 & ObjectMatrix);
 
 private:
 	static constexpr UINT Num32BitPerMatrix = 4 * 4;

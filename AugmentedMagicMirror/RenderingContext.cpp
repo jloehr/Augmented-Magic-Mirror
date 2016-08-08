@@ -8,7 +8,7 @@
 #include "GraphicsContext.h"
 #include "Camera.h"
 
-RenderingContext::RenderingContext(GraphicsContext & DeviceContext)
+RenderingContext::RenderingContext(_In_ GraphicsContext & DeviceContext)
 	:DeviceContext(DeviceContext)
 {
 }
@@ -19,7 +19,7 @@ void RenderingContext::Create()
 	CreatePipelineState();
 }
 
-void RenderingContext::Prepare(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, Camera & Camera)
+void RenderingContext::Prepare(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ const Camera & Camera)
 {
 	CommandList->SetPipelineState(PipelineState.Get());
 	CommandList->SetGraphicsRootSignature(RootSignature.Get());
@@ -32,12 +32,12 @@ void RenderingContext::Prepare(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>
 	CommandList->SetGraphicsRoot32BitConstants(0, Num32BitPerMatrix, &ProjectionMatrix, Num32BitPerMatrix);
 }
 
-void RenderingContext::SetObjectMatrix(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, const DirectX::XMFLOAT4X4 & ObjectMatrix)
+void RenderingContext::SetObjectMatrix(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ const DirectX::XMFLOAT4X4 & ObjectMatrix)
 {
 	CommandList->SetGraphicsRoot32BitConstants(1, Num32BitPerMatrix, &ObjectMatrix, 0);
 }
 
-void RenderingContext::LoadAndCompileShader(Microsoft::WRL::ComPtr<ID3DBlob>& VertexShader, Microsoft::WRL::ComPtr<ID3DBlob>& PixelShader)
+void RenderingContext::LoadAndCompileShader(_In_ Microsoft::WRL::ComPtr<ID3DBlob> & VertexShader, _In_  Microsoft::WRL::ComPtr<ID3DBlob> & PixelShader)
 {
 	Microsoft::WRL::ComPtr<ID3DBlob> Error;
 

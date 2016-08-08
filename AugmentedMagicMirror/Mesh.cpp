@@ -35,7 +35,7 @@ void Mesh::Create()
 	Fence.SetAndWait(DeviceContext.GetCommandQueue());
 }
 
-void Mesh::Render(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, RenderingContext & RenderingContext, const TransformList & Objects)
+void Mesh::Render(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ RenderingContext & RenderingContext, _In_ const TransformList & Objects)
 {
 	CommandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CommandList->IASetVertexBuffers(0, 1, &VertexBufferView);

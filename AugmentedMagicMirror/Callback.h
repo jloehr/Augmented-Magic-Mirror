@@ -12,18 +12,18 @@ class Callback
 
 public:
 	template <typename Class>
-	void AddCallback(Class * Listener, CallbackMethod<Class> ListenerMethod) 
+	void AddCallback(_In_ Class * Listener, _In_ CallbackMethod<Class> ListenerMethod)
 	{
 		Callbacks.push_back([=](const CallbackArguments & ... Arguments) { (Listener->*ListenerMethod)(Arguments...); });
 	}
 
 	template <typename Class>
-	void operator+=(std::pair<Class *, CallbackMethod<Class> > Callback)
+	void operator+=(_In_ std::pair<Class *, CallbackMethod<Class> > Callback)
 	{
 		AddCallback(Callback.first, Callback.second);
 	}
 
-	void operator()(const CallbackArguments & ... Arguments)
+	void operator()(_In_ const CallbackArguments & ... Arguments)
 	{
 		for (auto & Callback : Callbacks)
 		{

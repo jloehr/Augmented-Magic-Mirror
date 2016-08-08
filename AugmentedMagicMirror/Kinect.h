@@ -7,7 +7,7 @@ class Kinect
 public:
 	typedef std::vector<CameraSpacePoint> CameraSpacePointList;
 
-	Kinect(const Vector3 & Offset);
+	Kinect(_In_ const Vector3 & Offset);
 
 	void Initialize();
 	void Release();
@@ -53,7 +53,7 @@ private:
 	void SetupDepthFrameReader();
 
 	template<typename InterfaceType>
-	void AddEvent(Microsoft::WRL::ComPtr<InterfaceType> Interface, HRESULT(_stdcall InterfaceType::*EventRegister)(WAITABLE_HANDLE *), EventCallback Callback)
+	void AddEvent(_In_ Microsoft::WRL::ComPtr<InterfaceType> Interface, _In_ HRESULT(_stdcall InterfaceType::*EventRegister)(WAITABLE_HANDLE *), _In_ EventCallback Callback)
 	{
 		WAITABLE_HANDLE EventHandle;
 		Utility::ThrowOnFail((Interface.Get()->*EventRegister)(&EventHandle));
@@ -61,20 +61,20 @@ private:
 		Events.push_back(std::make_pair(EventHandle, Callback));
 	}
 
-	void CheckEvent(Event & Event);
+	void CheckEvent(_In_ Event & Event);
 
-	void BodyFrameRecieved(WAITABLE_HANDLE EventHandle);
-	Microsoft::WRL::ComPtr<IBodyFrame> GetBodyFrame(WAITABLE_HANDLE EventHandle);
-	void UpdateBodies(Microsoft::WRL::ComPtr<IBodyFrame> & BodyFrame);
+	void BodyFrameRecieved(_In_ WAITABLE_HANDLE EventHandle);
+	Microsoft::WRL::ComPtr<IBodyFrame> GetBodyFrame(_In_ WAITABLE_HANDLE EventHandle);
+	void UpdateBodies(_In_ Microsoft::WRL::ComPtr<IBodyFrame> & BodyFrame);
 	void UpdateTrackedBody();
 	bool UpdateCurrentTrackedBody();
 	void TrackNewBody();
 
-	void HighDefinitionFaceFrameRecieved(WAITABLE_HANDLE EventHandle);
-	bool UpdateFaceModel(Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> FaceFrame);
-	Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> GetFaceFrame(WAITABLE_HANDLE EventHandle);
+	void HighDefinitionFaceFrameRecieved(_In_ WAITABLE_HANDLE EventHandle);
+	bool UpdateFaceModel(_In_ Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> FaceFrame);
+	Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> GetFaceFrame(_In_ WAITABLE_HANDLE EventHandle);
 
-	void DepthFrameRecieved(WAITABLE_HANDLE EventHandle);
-	Microsoft::WRL::ComPtr<IDepthFrame> GetDepthFrame(WAITABLE_HANDLE EventHandle);
+	void DepthFrameRecieved(_In_ WAITABLE_HANDLE EventHandle);
+	Microsoft::WRL::ComPtr<IDepthFrame> GetDepthFrame(_In_ WAITABLE_HANDLE EventHandle);
 };
 

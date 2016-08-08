@@ -5,7 +5,7 @@
 #include "Kinect.h"
 
 
-Kinect::Kinect(const Vector3 & Offset)
+Kinect::Kinect(_In_ const Vector3 & Offset)
 	:Offset(Offset)
 	,RealWorldToVirutalScale(100.f) // Kinect Sensor reports its values in "Meters"; Virtual World uses "Centimeters"
 {
@@ -89,7 +89,7 @@ void Kinect::SetupDepthFrameReader()
 	AddEvent<IDepthFrameReader>(DepthFrameReader, &IDepthFrameReader::SubscribeFrameArrived, &Kinect::DepthFrameRecieved);
 }
 
-void Kinect::CheckEvent(Event & Event)
+void Kinect::CheckEvent(_In_ Event & Event)
 {
 	HANDLE EventHandle = reinterpret_cast<HANDLE>(Event.first);
 
@@ -111,7 +111,7 @@ void Kinect::CheckEvent(Event & Event)
 	}
 }
 
-void Kinect::BodyFrameRecieved(WAITABLE_HANDLE EventHandle)
+void Kinect::BodyFrameRecieved(_In_ WAITABLE_HANDLE EventHandle)
 {
 	Microsoft::WRL::ComPtr<IBodyFrame> BodyFrame = GetBodyFrame(EventHandle);
 
@@ -124,7 +124,7 @@ void Kinect::BodyFrameRecieved(WAITABLE_HANDLE EventHandle)
 	UpdateTrackedBody();
 }
 
-Microsoft::WRL::ComPtr<IBodyFrame> Kinect::GetBodyFrame(WAITABLE_HANDLE EventHandle)
+Microsoft::WRL::ComPtr<IBodyFrame> Kinect::GetBodyFrame(_In_ WAITABLE_HANDLE EventHandle)
 {
 	Microsoft::WRL::ComPtr<IBodyFrameArrivedEventArgs> BodyFrameArrivedEventArgs;
 	Microsoft::WRL::ComPtr<IBodyFrameReference> BodyFrameReference;
@@ -137,7 +137,7 @@ Microsoft::WRL::ComPtr<IBodyFrame> Kinect::GetBodyFrame(WAITABLE_HANDLE EventHan
 	return BodyFrame;
 }
 
-void Kinect::UpdateBodies(Microsoft::WRL::ComPtr<IBodyFrame>& BodyFrame)
+void Kinect::UpdateBodies(_In_ Microsoft::WRL::ComPtr<IBodyFrame>& BodyFrame)
 {
 	std::vector<IBody *> NewBodyData(Bodies.size(), nullptr);
 	std::transform(Bodies.begin(), Bodies.end(), NewBodyData.begin(), [](auto ComPtr)->auto { return ComPtr.Get(); });
@@ -203,7 +203,7 @@ void Kinect::TrackNewBody()
 	Utility::ThrowOnFail(HighDefinitionFaceFrameSource->put_TrackingId(NewTrackingID));
 }
 
-void Kinect::HighDefinitionFaceFrameRecieved(WAITABLE_HANDLE EventHandle)
+void Kinect::HighDefinitionFaceFrameRecieved(_In_ WAITABLE_HANDLE EventHandle)
 {
 	if (UpdateFaceModel(GetFaceFrame(EventHandle)))
 	{
@@ -211,7 +211,7 @@ void Kinect::HighDefinitionFaceFrameRecieved(WAITABLE_HANDLE EventHandle)
 	}
 }
 
-bool Kinect::UpdateFaceModel(Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> FaceFrame)
+bool Kinect::UpdateFaceModel(_In_ Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> FaceFrame)
 {
 	if (FaceFrame == nullptr)
 	{
@@ -232,7 +232,7 @@ bool Kinect::UpdateFaceModel(Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> Fa
 	return true;
 }
 
-Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> Kinect::GetFaceFrame(WAITABLE_HANDLE EventHandle)
+Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> Kinect::GetFaceFrame(_In_ WAITABLE_HANDLE EventHandle)
 {
 	Microsoft::WRL::ComPtr<IHighDefinitionFaceFrameArrivedEventArgs> HighDefinitionFaceFrameArrivedEventArgs;
 	Microsoft::WRL::ComPtr<IHighDefinitionFaceFrameReference> HighDefinitionFaceFrameReference;
@@ -245,7 +245,7 @@ Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> Kinect::GetFaceFrame(WAITABLE_H
 	return HighDefinitionFaceFrame;
 }
 
-void Kinect::DepthFrameRecieved(WAITABLE_HANDLE EventHandle)
+void Kinect::DepthFrameRecieved(_In_ WAITABLE_HANDLE EventHandle)
 {
 	Microsoft::WRL::ComPtr<IDepthFrame> DepthFrame = GetDepthFrame(EventHandle);
 	UINT BufferSize;
@@ -258,7 +258,7 @@ void Kinect::DepthFrameRecieved(WAITABLE_HANDLE EventHandle)
 
 }
 
-Microsoft::WRL::ComPtr<IDepthFrame> Kinect::GetDepthFrame(WAITABLE_HANDLE EventHandle)
+Microsoft::WRL::ComPtr<IDepthFrame> Kinect::GetDepthFrame(_In_ WAITABLE_HANDLE EventHandle)
 {
 	Microsoft::WRL::ComPtr<IDepthFrameArrivedEventArgs> DepthFrameArrivedEventArgs;
 	Microsoft::WRL::ComPtr<IDepthFrameReference> DepthFrameReference;
