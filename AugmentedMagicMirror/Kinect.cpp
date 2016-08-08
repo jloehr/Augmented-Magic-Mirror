@@ -80,6 +80,15 @@ void Kinect::SetupFaceModel()
 	FaceVertices.resize(VertexCount);
 }
 
+void Kinect::SetupDepthFrameReader()
+{
+	Utility::ThrowOnFail(KinectSensor->get_CoordinateMapper(&CoordinateMapper));
+	Utility::ThrowOnFail(KinectSensor->get_DepthFrameSource(&DepthFrameSource));
+	Utility::ThrowOnFail(DepthFrameSource->OpenReader(&DepthFrameReader));
+
+	AddEvent<IDepthFrameReader>(DepthFrameReader, &IDepthFrameReader::SubscribeFrameArrived, &Kinect::DepthFrameRecieved);
+}
+
 void Kinect::CheckEvent(Event & Event)
 {
 	HANDLE EventHandle = reinterpret_cast<HANDLE>(Event.first);
@@ -234,5 +243,31 @@ Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> Kinect::GetFaceFrame(WAITABLE_H
 	HighDefinitionFaceFrameReference->AcquireFrame(&HighDefinitionFaceFrame);
 
 	return HighDefinitionFaceFrame;
+}
+
+void Kinect::DepthFrameRecieved(WAITABLE_HANDLE EventHandle)
+{
+	Microsoft::WRL::ComPtr<IDepthFrame> DepthFrame = GetDepthFrame(EventHandle);
+	UINT BufferSize;
+	PUINT16 Buffer;
+
+	DepthFrame->AccessUnderlyingBuffer(&BufferSize, &Buffer);
+	DepthVertices.resize(BufferSize);
+	CoordinateMapper->MapDepthFrameToCameraSpace(BufferSize, Buffer, static_cast<UINT>(DepthVertices.size()), DepthVertices.data());
+
+
+}
+
+Microsoft::WRL::ComPtr<IDepthFrame> Kinect::GetDepthFrame(WAITABLE_HANDLE EventHandle)
+{
+	Microsoft::WRL::ComPtr<IDepthFrameArrivedEventArgs> DepthFrameArrivedEventArgs;
+	Microsoft::WRL::ComPtr<IDepthFrameReference> DepthFrameReference;
+	Microsoft::WRL::ComPtr<IDepthFrame> DepthFrame;
+
+	Utility::ThrowOnFail(DepthFrameReader->GetFrameArrivedEventData(EventHandle, &DepthFrameArrivedEventArgs));
+	Utility::ThrowOnFail(DepthFrameArrivedEventArgs->get_FrameReference(&DepthFrameReference));
+	DepthFrameReference->AcquireFrame(&DepthFrame);
+
+	return DepthFrame;
 }
 

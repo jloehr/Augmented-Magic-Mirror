@@ -17,6 +17,7 @@ public:
 	float GetRealWorldToVirutalScale() const;
 
 	Callback<CameraSpacePointList, Vector3, float> FaceModelUpdated;
+	Callback<CameraSpacePointList, Vector3, float> DepthVerticesUpdated;
 	
 private:
 	typedef void(Kinect::*EventCallback)(WAITABLE_HANDLE EventHandle);
@@ -28,21 +29,28 @@ private:
 	const float RealWorldToVirutalScale;
 
 	Microsoft::WRL::ComPtr<IKinectSensor> KinectSensor;
+	EventList Events;
+
 	Microsoft::WRL::ComPtr<IBodyFrameSource> BodyFrameSource;
 	Microsoft::WRL::ComPtr<IBodyFrameReader> BodyFrameReader;
 	Microsoft::WRL::ComPtr<IBody> TrackedBody;
+	BodyVector Bodies;
+
 	Microsoft::WRL::ComPtr<IHighDefinitionFaceFrameSource> HighDefinitionFaceFrameSource;
 	Microsoft::WRL::ComPtr<IHighDefinitionFaceFrameReader> HighDefinitionFaceFrameReader;
 	Microsoft::WRL::ComPtr<IFaceModel> FaceModel;
 	Microsoft::WRL::ComPtr<IFaceAlignment> FaceAlignment;
-	BodyVector Bodies;
-	EventList Events;
-
 	CameraSpacePointList FaceVertices;
+
+	Microsoft::WRL::ComPtr<ICoordinateMapper> CoordinateMapper;
+	Microsoft::WRL::ComPtr<IDepthFrameSource> DepthFrameSource;
+	Microsoft::WRL::ComPtr<IDepthFrameReader> DepthFrameReader;
+	CameraSpacePointList DepthVertices;
 
 	void SetupBodyFrameReader();
 	void SetupHighDefinitionFaceFrameReader();
 	void SetupFaceModel();
+	void SetupDepthFrameReader();
 
 	template<typename InterfaceType>
 	void AddEvent(Microsoft::WRL::ComPtr<InterfaceType> Interface, HRESULT(_stdcall InterfaceType::*EventRegister)(WAITABLE_HANDLE *), EventCallback Callback)
@@ -65,5 +73,8 @@ private:
 	void HighDefinitionFaceFrameRecieved(WAITABLE_HANDLE EventHandle);
 	bool UpdateFaceModel(Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> FaceFrame);
 	Microsoft::WRL::ComPtr<IHighDefinitionFaceFrame> GetFaceFrame(WAITABLE_HANDLE EventHandle);
+
+	void DepthFrameRecieved(WAITABLE_HANDLE EventHandle);
+	Microsoft::WRL::ComPtr<IDepthFrame> GetDepthFrame(WAITABLE_HANDLE EventHandle);
 };
 
