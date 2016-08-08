@@ -35,6 +35,17 @@ Microsoft::WRL::ComPtr<ID3D12CommandQueue>& GraphicsContext::GetCommandQueue()
 	return CommandQueue;
 }
 
+void GraphicsContext::ExecuteCommandList(const Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>& CommandList) const
+{
+	GraphicsContext::ExecuteCommandList(CommandList, CommandQueue);
+}
+
+void GraphicsContext::ExecuteCommandList(const Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>& CommandList, const Microsoft::WRL::ComPtr<ID3D12CommandQueue>& CommandQueue)
+{
+	ID3D12CommandList * CommandListPointer = CommandList.Get();
+	CommandQueue->ExecuteCommandLists(1, &CommandListPointer);
+}
+
 void GraphicsContext::EnableDebugLayer()
 {
 #if defined(_DEBUG)

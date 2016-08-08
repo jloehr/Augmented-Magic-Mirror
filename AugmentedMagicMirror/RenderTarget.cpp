@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "RenderTarget.h"
 
+#include "GraphicsContext.h"
 #include "Utility.h"
 
 RenderTarget::RenderTarget()
@@ -45,8 +46,7 @@ void RenderTarget::EndFrame(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandLis
 
 	Utility::ThrowOnFail(CommandList->Close());
 
-	ID3D12CommandList * CommandListPointer = CommandList.Get();
-	CommandQueue->ExecuteCommandLists(1, &CommandListPointer);
+	GraphicsContext::ExecuteCommandList(CommandList, CommandQueue);
 
 	Fence.Set(CommandQueue);
 }

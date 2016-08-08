@@ -29,9 +29,7 @@ void Mesh::Create()
 
 	Utility::ThrowOnFail(CommandList->Close());
 
-	ID3D12CommandList * CommandListPointer = CommandList.Get();
-	DeviceContext.GetCommandQueue()->ExecuteCommandLists(1, &CommandListPointer);
-
+	DeviceContext.ExecuteCommandList(CommandList);
 	Fence.SetAndWait(DeviceContext.GetCommandQueue());
 }
 
