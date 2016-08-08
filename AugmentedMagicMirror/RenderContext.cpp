@@ -1,14 +1,14 @@
-// Renderer.cpp : Does all the Directx stuff
+// RenderContext.cpp : A context for rendering to a particular output Window
 //
 
 #include "stdafx.h"
-#include "Renderer.h"
+#include "RenderContext.h"
 
 #include "GraphicsContext.h"
 #include "Camera.h"
-#include "Model.h"
+#include "Mesh.h"
 
-Renderer::Renderer(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ ::Camera & Camera)
+RenderContext::RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ ::Camera & Camera)
 	:DeviceContext(DeviceContext), TargetWindow(TargetWindow)
 	,Camera(Camera)
 	,Viewport(), ScissorRect()
@@ -16,7 +16,7 @@ Renderer::Renderer(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWin
 {
 }
 
-void Renderer::Initialize()
+void RenderContext::Initialize()
 { 
 	if (TargetWindow.GetHandle() == nullptr)
 	{
@@ -38,7 +38,7 @@ void Renderer::Initialize()
 	Fence.Initialize(DeviceContext.GetDevice());
 }
 
-void Renderer::CreateSwapChain()
+void RenderContext::CreateSwapChain()
 {
 	DXGI_SWAP_CHAIN_DESC1 SwapChainDesc = {};
 	SwapChainDesc.BufferCount = BufferFrameCount;
@@ -58,7 +58,7 @@ void Renderer::CreateSwapChain()
 	BufferFrameIndex = SwapChain->GetCurrentBackBufferIndex();
 }
 
-void Renderer::CreateRTVHeap()
+void RenderContext::CreateRTVHeap()
 {
 	D3D12_DESCRIPTOR_HEAP_DESC RTVHeapDesc = {};
 	RTVHeapDesc.NumDescriptors = BufferFrameCount;
@@ -70,7 +70,7 @@ void Renderer::CreateRTVHeap()
 	RTVDescSize = DeviceContext.GetDevice()->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 }
 
-void Renderer::CreateDSVHeap()
+void RenderContext::CreateDSVHeap()
 {
 	D3D12_DESCRIPTOR_HEAP_DESC DSVHeapDesc = {};
 	DSVHeapDesc.NumDescriptors = 1;
@@ -80,7 +80,7 @@ void Renderer::CreateDSVHeap()
 	Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateDescriptorHeap(&DSVHeapDesc, IID_PPV_ARGS(&DSVHeap)));
 }
 
-void Renderer::CreateDepthStencilView()
+void RenderContext::CreateDepthStencilView()
 {
 	D3D12_DEPTH_STENCIL_VIEW_DESC DepthStencilViewDesc = {};
 	DepthStencilViewDesc.Format = DXGI_FORMAT_D32_FLOAT;
@@ -100,7 +100,7 @@ void Renderer::CreateDepthStencilView()
 	DeviceContext.GetDevice()->CreateDepthStencilView(DepthStencelView.Get(), &DepthStencilViewDesc, DSVHeap->GetCPUDescriptorHandleForHeapStart());
 }
 
-void Renderer::InitializeRenderTargets()
+void RenderContext::InitializeRenderTargets()
 {
 	CD3DX12_CPU_DESCRIPTOR_HANDLE RTVHandle(RTVHeap->GetCPUDescriptorHandleForHeapStart());
 
@@ -111,20 +111,20 @@ void Renderer::InitializeRenderTargets()
 	}
 }
 
-void Renderer::CreateCommandList()
+void RenderContext::CreateCommandList()
 {
 	Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, RenderTargets[BufferFrameIndex].GetCommandAllocator().Get(), nullptr, IID_PPV_ARGS(&CommandList)));
 	Utility::ThrowOnFail(CommandList->Close());
 }
 
-void Renderer::ResizeBuffers(_In_ const Window::WindowSize & NewSize)
+void RenderContext::ResizeBuffers(_In_ const Window::WindowSize & NewSize)
 {
 	ReleaseSizeDependentBuffers();
 	ResizeSwapChain(NewSize);
 	RecreateSizeDependentBuffers();
 }
 
-void Renderer::ReleaseSizeDependentBuffers()
+void RenderContext::ReleaseSizeDependentBuffers()
 {
 	for (UINT i = 0; i < BufferFrameCount; ++i)
 	{
@@ -134,7 +134,7 @@ void Renderer::ReleaseSizeDependentBuffers()
 	DepthStencelView.Reset();
 }
 
-void Renderer::ResizeSwapChain(_In_ const Window::WindowSize & NewSize)
+void RenderContext::ResizeSwapChain(_In_ const Window::WindowSize & NewSize)
 {
 	DXGI_SWAP_CHAIN_DESC SwapChainDesc = {};
 	SwapChain->GetDesc(&SwapChainDesc);
@@ -143,7 +143,7 @@ void Renderer::ResizeSwapChain(_In_ const Window::WindowSize & NewSize)
 	BufferFrameIndex = SwapChain->GetCurrentBackBufferIndex();
 }
 
-void Renderer::RecreateSizeDependentBuffers()
+void RenderContext::RecreateSizeDependentBuffers()
 {
 	CD3DX12_CPU_DESCRIPTOR_HANDLE RTVHandle(RTVHeap->GetCPUDescriptorHandleForHeapStart());
 
@@ -156,7 +156,7 @@ void Renderer::RecreateSizeDependentBuffers()
 	CreateDepthStencilView();
 }
 
-void Renderer::UpdateViewportAndScissorRect(_In_ const Window::WindowSize & Size)
+void RenderContext::UpdateViewportAndScissorRect(_In_ const Window::WindowSize & Size)
 {
 	Viewport.Width = static_cast<float>(Size.first);
 	Viewport.Height = static_cast<float>(Size.second);
@@ -166,12 +166,12 @@ void Renderer::UpdateViewportAndScissorRect(_In_ const Window::WindowSize & Size
 	ScissorRect.bottom = static_cast<LONG>(Size.second);
 }
 
-CD3DX12_CPU_DESCRIPTOR_HANDLE Renderer::GetRTVCPUHandle()
+CD3DX12_CPU_DESCRIPTOR_HANDLE RenderContext::GetRTVCPUHandle()
 {
 	return CD3DX12_CPU_DESCRIPTOR_HANDLE(RTVHeap->GetCPUDescriptorHandleForHeapStart(), BufferFrameIndex, RTVDescSize);
 }
 
-void Renderer::Render(_In_ RenderParameterList ObjectsToRender)
+void RenderContext::Render(_In_ RenderParameterList ObjectsToRender)
 {
 	RenderTarget & CurrentRenderTarget = RenderTargets[BufferFrameIndex];
 	CurrentRenderTarget.BeginFrame(CommandList);
@@ -196,7 +196,7 @@ void Renderer::Render(_In_ RenderParameterList ObjectsToRender)
 	BufferFrameIndex = SwapChain->GetCurrentBackBufferIndex();
 }
 
-void Renderer::OnWindowSizeChange(_In_ const Window::WindowSize & NewSize)
+void RenderContext::OnWindowSizeChange(_In_ const Window::WindowSize & NewSize)
 {
 	Fence.SetAndWait(DeviceContext.GetCommandQueue());
 

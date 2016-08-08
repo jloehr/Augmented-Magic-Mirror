@@ -2,14 +2,14 @@
 
 #include "MainWindow.h"
 #include "GraphicsContext.h"
-#include "Renderer.h"
+#include "RenderContext.h"
 #include "Kinect.h"
 #include "HeadTracker.h"
 
 #include "DirectionalFoVCamera.h"
 #include "FrameCamera.h"
 
-#include "Model.h"
+#include "Mesh.h"
 #include "Transform.h"
 
 class AugmentedMagicMirror
@@ -24,14 +24,14 @@ private:
 
 	MainWindow Window;
 	GraphicsContext GraphicsDevice;
-	Renderer Renderer;
+	RenderContext Renderer;
 	Kinect Kinect;
 	HeadTracker HeadTracker;
 
 	DirectionalFoVCamera DCamera;
 	FrameCamera FCamera;
 
-	Model CubeModel;
+	Mesh CubeModel;
 	TransformList Cubes;
 
 	void Initialize(_In_ int CmdShow);

@@ -1,19 +1,19 @@
-// Model.cpp : Represents a Mesh with its VertexBuffer, VertexIndices, RootSignature and Shader
+// Mesh.cpp : Represents a Mesh with its VertexBuffer, VertexIndices, RootSignature and Shader
 //
 
 #include "stdafx.h"
-#include "Model.h"
+#include "Mesh.h"
 
 #include "Resource.h"
 #include "GraphicsContext.h"
 #include "Camera.h"
 
-Model::Model(_In_ GraphicsContext & DeviceContext)
+Mesh::Mesh(_In_ GraphicsContext & DeviceContext)
 	:DeviceContext(DeviceContext)
 {
 }
 
-void Model::Create()
+void Mesh::Create()
 {
 	CreateRootSignature();
 	CreatePipelineState();
@@ -39,7 +39,7 @@ void Model::Create()
 	Fence.SetAndWait(DeviceContext.GetCommandQueue());
 }
 
-void Model::Render(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ Camera & Camera, _In_ const TransformList & Objects)
+void Mesh::Render(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ Camera & Camera, _In_ const TransformList & Objects)
 {
 	CommandList->SetPipelineState(PipelineState.Get());
 	CommandList->SetGraphicsRootSignature(RootSignature.Get());
@@ -64,7 +64,7 @@ void Model::Render(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & Comm
 	}
 }
 
-void Model::CreateRootSignature()
+void Mesh::CreateRootSignature()
 {
 	std::array<CD3DX12_ROOT_PARAMETER, 2> RootParameters;
 	RootParameters[0].InitAsConstants(2 * Num32BitPerMatrix, 0, 0, D3D12_SHADER_VISIBILITY_VERTEX);
@@ -86,7 +86,7 @@ void Model::CreateRootSignature()
 	Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateRootSignature(0, SerializedSignature->GetBufferPointer(), SerializedSignature->GetBufferSize(), IID_PPV_ARGS(&RootSignature)));
 }
 
-void Model::CreatePipelineState()
+void Mesh::CreatePipelineState()
 {
 	Microsoft::WRL::ComPtr<ID3DBlob> VertexShader;
 	Microsoft::WRL::ComPtr<ID3DBlob> PixelShader;
@@ -117,7 +117,7 @@ void Model::CreatePipelineState()
 	Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateGraphicsPipelineState(&PipelineStateDesc, IID_PPV_ARGS(&PipelineState)));
 }
 
-void Model::UploadVertices(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _Out_ Microsoft::WRL::ComPtr<ID3D12Resource> & UploadResource)
+void Mesh::UploadVertices(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _Out_ Microsoft::WRL::ComPtr<ID3D12Resource> & UploadResource)
 {
 	std::array<Vertex, 8> Cube =
 	{ {
@@ -140,7 +140,7 @@ void Model::UploadVertices(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList
 	VertexBufferView.SizeInBytes = SizeOfCube;
 }
 
-void Model::UploadIndices(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _Out_ Microsoft::WRL::ComPtr<ID3D12Resource> & UploadResource)
+void Mesh::UploadIndices(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _Out_ Microsoft::WRL::ComPtr<ID3D12Resource> & UploadResource)
 {
 	using IndexSize = uint16_t;
 	std::array<IndexSize, 36> Indices =
@@ -174,7 +174,7 @@ void Model::UploadIndices(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>
 	IndexBufferView.Format = DXGI_FORMAT_R16_UINT;
 }
 
-void Model::UploadData(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _Out_ Microsoft::WRL::ComPtr<ID3D12Resource> & Resource, _Out_ Microsoft::WRL::ComPtr<ID3D12Resource> & UploadResource, _In_reads_bytes_(DataSize) const void * Data, _In_ size_t  DataSize)
+void Mesh::UploadData(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _Out_ Microsoft::WRL::ComPtr<ID3D12Resource> & Resource, _Out_ Microsoft::WRL::ComPtr<ID3D12Resource> & UploadResource, _In_reads_bytes_(DataSize) const void * Data, _In_ size_t  DataSize)
 {
 	CD3DX12_HEAP_PROPERTIES DefaultHeapProperties(D3D12_HEAP_TYPE_DEFAULT);
 	CD3DX12_HEAP_PROPERTIES UploadHeapProperties(D3D12_HEAP_TYPE_UPLOAD);
@@ -207,7 +207,7 @@ void Model::UploadData(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & 
 	CommandList->ResourceBarrier(1, &ResourceBarrier);
 }
 
-void Model::LoadAndCompileShader(_Out_ Microsoft::WRL::ComPtr<ID3DBlob>& VertexShader, _Out_ Microsoft::WRL::ComPtr<ID3DBlob>& PixelShader)
+void Mesh::LoadAndCompileShader(_Out_ Microsoft::WRL::ComPtr<ID3DBlob>& VertexShader, _Out_ Microsoft::WRL::ComPtr<ID3DBlob>& PixelShader)
 {
 	Microsoft::WRL::ComPtr<ID3DBlob> Error;
 

@@ -48,7 +48,7 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 		}
 
 		Kinect.Update();
-		Renderer.Render({ Renderer::RenderParameter(CubeModel, Cubes) });
+		Renderer.Render({ RenderContext::RenderParameter(CubeModel, Cubes) });
 
 	} while (Message.message != WM_QUIT);
 

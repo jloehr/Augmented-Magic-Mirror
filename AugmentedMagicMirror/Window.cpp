@@ -4,9 +4,9 @@
 #include "stdafx.h"
 #include "Window.h"
 
-#include "Renderer.h"
+#include "RenderContext.h"
 
-Window::Window(_In_ Renderer & WindowRenderer)
+Window::Window(_In_ RenderContext & WindowRenderer)
 	:WindowHandle(nullptr), WindowRenderer(WindowRenderer)
 {
 }

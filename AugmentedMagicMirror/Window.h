@@ -1,13 +1,13 @@
 #pragma once
 
-class Renderer;
+class RenderContext;
 
 class Window
 {
 public:
 	typedef std::pair<ULONG, ULONG> WindowSize;
 
-	Window(_In_ Renderer & WindowRenderer);
+	Window(_In_ RenderContext & WindowRenderer);
 
 	void Create(_In_ HINSTANCE Instance);
 	void Show(_In_ int CmdShow);
@@ -18,7 +18,7 @@ public:
 protected:
 	HWND WindowHandle;
 	WindowSize Size;
-	Renderer & WindowRenderer;
+	RenderContext & WindowRenderer;
 
 	WindowSize QueryWindowSize();
 	void UpdateWindowSize();

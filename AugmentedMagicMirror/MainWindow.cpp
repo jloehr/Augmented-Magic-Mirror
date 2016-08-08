@@ -7,7 +7,7 @@
 const std::wstring MainWindow::WindowClassName = L"Main Windows";
 bool MainWindow::WindowClassRegistered = false;
 
-MainWindow::MainWindow(_In_ Renderer & WindowRenderer)
+MainWindow::MainWindow(_In_ RenderContext & WindowRenderer)
 	:Window(WindowRenderer)
 {
 }

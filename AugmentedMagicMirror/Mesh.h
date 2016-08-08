@@ -5,10 +5,10 @@
 class GraphicsContext;
 class Camera;
 
-class Model
+class Mesh
 {
 public:
-	Model(_In_ GraphicsContext & DeviceContext);
+	Mesh(_In_ GraphicsContext & DeviceContext);
 
 	void Create();
 	void Render(_In_ Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ Camera & Camera, _In_ const TransformList & Objects);

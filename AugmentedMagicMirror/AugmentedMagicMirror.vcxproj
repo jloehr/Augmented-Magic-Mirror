@@ -186,8 +186,8 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClInclude Include="AugmentedMagicMirror.h" />
     <ClInclude Include="Kinect.h" />
     <ClInclude Include="MainWindow.h" />
-    <ClInclude Include="Model.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="RenderContext.h" />
     <ClInclude Include="RenderTarget.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SettingsFile.h" />
@@ -208,8 +208,8 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClCompile Include="Kinect.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
-    <ClCompile Include="Model.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="RenderContext.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="SettingsFile.cpp" />
     <ClCompile Include="stdafx.cpp">
