@@ -19,6 +19,8 @@ private:
 	Mesh PlaneMesh;
 	TransformList Instances;
 
+	Mesh::VertexList VertexCache;
+
 	void DepthVerticesUpdatedCallback(_In_ const Kinect::CameraSpacePointList & DepthVertices);
 
 };

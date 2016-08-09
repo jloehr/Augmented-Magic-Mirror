@@ -10,21 +10,22 @@ class RenderingContext;
 class Mesh
 {
 public:
-	Mesh(_In_ GraphicsContext & DeviceContext);
-
-	void CreateCube();
-	void CreatePlane(_In_ unsigned Width, _In_ unsigned Height);
-	void Render(_In_ const Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ const RenderingContext & RenderingContext, _In_ const TransformList & Objects) const;
-
-	void UpdateVertices(const Vector3List & Vertices);
-
-private:
 	struct Vertex
 	{
 		DirectX::XMFLOAT3 Position;
 		DirectX::XMFLOAT4 Color;
 	};
 	typedef std::vector<Vertex> VertexList;
+
+	Mesh(_In_ GraphicsContext & DeviceContext);
+
+	void CreateCube();
+	void CreatePlane(_In_ unsigned Width, _In_ unsigned Height);
+	void Render(_In_ const Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, _In_ const RenderingContext & RenderingContext, _In_ const TransformList & Objects) const;
+
+	void UpdateVertices(const VertexList & Vertices);
+
+private:
 	typedef uint32_t Index;
 	typedef std::vector<Index> IndexList;
 

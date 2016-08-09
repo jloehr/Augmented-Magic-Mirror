@@ -90,26 +90,17 @@ void Mesh::Render(_In_ const Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> &
 	}
 }
 
-void Mesh::UpdateVertices(const Vector3List & Vertices)
+void Mesh::UpdateVertices(const VertexList & Vertices)
 {
 	if (UploadFence.IsBusy())
 	{
 		OutputDebugString(L"Upload is skipped!");
 		return;
 	}
-
-	VertexList NewVertices;
-	NewVertices.reserve(Vertices.size());
-
-	for (const Vector3 & Vertex : Vertices)
-	{
-		NewVertices.push_back({ { Vertex.X, Vertex.Y, Vertex.Z }, { 0.0f, 0.0f, 0.0f, 0.0f } });
-	}
-
 	Utility::ThrowOnFail(CommandAllocator->Reset());
 	Utility::ThrowOnFail(CommandList->Reset(CommandAllocator.Get(), nullptr));
 
-	UploadData(CommandList, VertexBuffer, VertexUploadResource, NewVertices.data(), VertexBufferView.SizeInBytes);
+	UploadData(CommandList, VertexBuffer, VertexUploadResource, Vertices.data(), VertexBufferView.SizeInBytes);
 
 	Utility::ThrowOnFail(CommandList->Close());
 	DeviceContext.ExecuteCommandList(CommandList);

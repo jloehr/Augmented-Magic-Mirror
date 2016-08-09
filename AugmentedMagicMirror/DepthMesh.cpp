@@ -27,14 +27,10 @@ RenderContext::ObjectList DepthMesh::GetRenderObjectList() const
 
 void DepthMesh::DepthVerticesUpdatedCallback(_In_ const Kinect::CameraSpacePointList & DepthVertices)
 {
-	Vector3List Vertices;
-	Vertices.reserve(DepthVertices.size());
+	VertexCache.resize(DepthVertices.size());
 
-	for (const CameraSpacePoint & Point : DepthVertices)
-	{
-		Vertices.push_back(Vector3(Point.X, Point.Y, Point.Z));
-	}
+	std::transform(DepthVertices.begin(), DepthVertices.end(), VertexCache.begin(), [](auto Vertex) { return Mesh::Vertex({ { Vertex.X, Vertex.Y, Vertex.Z },{ 0.0f, 0.0f, 0.0f, 0.0f } }); });
 
-	PlaneMesh.UpdateVertices(Vertices);
+	PlaneMesh.UpdateVertices(VertexCache);
 }
 
