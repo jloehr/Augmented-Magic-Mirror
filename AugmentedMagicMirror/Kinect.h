@@ -7,6 +7,9 @@ class Kinect
 public:
 	typedef std::vector<CameraSpacePoint> CameraSpacePointList;
 
+	static const unsigned DepthImageWidth = 512;
+	static const unsigned DepthImageHeigth = 424;
+
 	Kinect(_In_ const Vector3 & Offset);
 
 	void Initialize();
@@ -17,7 +20,7 @@ public:
 	float GetRealWorldToVirutalScale() const;
 
 	Callback<CameraSpacePointList, Vector3, float> FaceModelUpdated;
-	Callback<CameraSpacePointList, Vector3, float> DepthVerticesUpdated;
+	Callback<CameraSpacePointList> DepthVerticesUpdated;
 	
 private:
 	typedef void(Kinect::*EventCallback)(WAITABLE_HANDLE EventHandle);

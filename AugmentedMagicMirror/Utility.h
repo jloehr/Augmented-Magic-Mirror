@@ -35,6 +35,8 @@ struct Vector3 {
 	inline operator DirectX::XMVECTOR() const { return Vector; }
 };
 
+typedef std::vector<Vector3> Vector3List;
+
 struct Quaternion {
 	DirectX::XMVECTOR Value;
 

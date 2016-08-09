@@ -18,7 +18,7 @@ public:
 
 	void Initialize();
 
-	typedef std::pair<Mesh &, const TransformList &> ObjectList;
+	typedef std::pair<const Mesh &, const TransformList &> ObjectList;
 	typedef std::vector<ObjectList> MeshList;
 	typedef std::pair<RenderingContext &, MeshList> RenderParameter;
 	typedef std::vector<RenderParameter> RenderParameterList;
@@ -28,7 +28,7 @@ public:
 
 protected:
 	typedef std::array<float, 4> DXColor;
-	static constexpr DXColor BackgroundColor = { 0.0f, 0.2f, 0.4f, 1.0f };
+	static constexpr DXColor BackgroundColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 	static constexpr UINT BufferFrameCount = 2;
 	template<typename T> using BufferFrameArray = std::array<T, BufferFrameCount>;
 

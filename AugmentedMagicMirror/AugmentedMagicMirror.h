@@ -5,6 +5,7 @@
 #include "RenderContext.h"
 #include "Kinect.h"
 #include "HeadTracker.h"
+#include "DepthMesh.h"
 
 #include "DirectionalFoVCamera.h"
 #include "FrameCamera.h"
@@ -28,12 +29,13 @@ private:
 	RenderContext RenderContext;
 	Kinect Kinect;
 	HeadTracker HeadTracker;
+	DepthMesh DepthMesh;
 
 	DirectionalFoVCamera DCamera;
 	FrameCamera FCamera;
 
 	RenderingContext RenderingContext;
-	Mesh CubeModel;
+	Mesh CubeMesh;
 	TransformList Cubes;
 
 	void Initialize(_In_ int CmdShow);

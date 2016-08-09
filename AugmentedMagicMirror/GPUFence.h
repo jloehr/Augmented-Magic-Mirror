@@ -12,6 +12,8 @@ public:
 	void Wait();
 	void SetAndWait(_In_ Microsoft::WRL::ComPtr<ID3D12CommandQueue> & CommandQueue);
 
+	bool IsBusy() const;
+
 private:
 	static constexpr UINT64 BusyValue = 0;
 	static constexpr UINT64 ReadyValue = 1;

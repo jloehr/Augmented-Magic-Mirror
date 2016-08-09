@@ -113,6 +113,9 @@
     <ClInclude Include="RenderingContext.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="DepthMesh.h">
+      <Filter>Header Files\Kinect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -171,6 +174,9 @@
     </ClCompile>
     <ClCompile Include="RenderingContext.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthMesh.cpp">
+      <Filter>Source Files\Kinect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

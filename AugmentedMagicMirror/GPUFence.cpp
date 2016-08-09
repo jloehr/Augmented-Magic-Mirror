@@ -37,7 +37,7 @@ void GPUFence::Set(_In_ Microsoft::WRL::ComPtr<ID3D12CommandQueue> & CommandQueu
 
 void GPUFence::Wait()
 {
-	if (Fence->GetCompletedValue() == BusyValue)
+	if (IsBusy())
 	{
 		Utility::ThrowOnFail(Fence->SetEventOnCompletion(ReadyValue, FenceEvent));
 		WaitForSingleObjectEx(FenceEvent, INFINITE, FALSE);
@@ -49,3 +49,9 @@ void GPUFence::SetAndWait(_In_ Microsoft::WRL::ComPtr<ID3D12CommandQueue> & Comm
 	Set(CommandQueue);
 	Wait();
 }
+
+bool GPUFence::IsBusy() const
+{
+	return (Fence->GetCompletedValue() == BusyValue);
+}
+

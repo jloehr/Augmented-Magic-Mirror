@@ -177,6 +177,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="d3dx12.h" />
+    <ClInclude Include="DepthMesh.h" />
     <ClInclude Include="DirectionalFoVCamera.h" />
     <ClInclude Include="Callback.h" />
     <ClInclude Include="FrameCamera.h" />
@@ -200,6 +201,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DepthMesh.cpp" />
     <ClCompile Include="DirectionalFoVCamera.cpp" />
     <ClCompile Include="FrameCamera.cpp" />
     <ClCompile Include="GPUFence.cpp" />

@@ -19,6 +19,7 @@ void Kinect::Initialize()
 	SetupBodyFrameReader();
 	SetupHighDefinitionFaceFrameReader();
 	SetupFaceModel();
+	SetupDepthFrameReader();
 }
 
 void Kinect::Release()
@@ -251,11 +252,16 @@ void Kinect::DepthFrameRecieved(_In_ WAITABLE_HANDLE EventHandle)
 	UINT BufferSize;
 	PUINT16 Buffer;
 
+	if (DepthFrame == nullptr)
+	{
+		return;
+	}
+
 	DepthFrame->AccessUnderlyingBuffer(&BufferSize, &Buffer);
 	DepthVertices.resize(BufferSize);
 	CoordinateMapper->MapDepthFrameToCameraSpace(BufferSize, Buffer, static_cast<UINT>(DepthVertices.size()), DepthVertices.data());
 
-
+	DepthVerticesUpdated(DepthVertices);
 }
 
 Microsoft::WRL::ComPtr<IDepthFrame> Kinect::GetDepthFrame(_In_ WAITABLE_HANDLE EventHandle)

@@ -7,7 +7,7 @@ class Camera;
 class HeadTracker
 {
 public:
-	HeadTracker(Camera & Camera, Kinect & Kinect);
+	HeadTracker(_In_ Camera & Camera, _In_ Kinect & Kinect);
 
 private:
 	Camera & BoundCamera;
