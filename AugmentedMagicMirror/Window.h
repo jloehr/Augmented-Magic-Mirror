@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Callback.h"
+
 class RenderContext;
 
 class Window
@@ -14,6 +16,8 @@ public:
 
 	const HWND & GetHandle() const;
 	const WindowSize & GetWindowSize() const;
+
+	Callback<WPARAM> KeyPressed;
 
 protected:
 	HWND WindowHandle;

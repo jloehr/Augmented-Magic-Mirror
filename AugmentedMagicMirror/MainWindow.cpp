@@ -54,6 +54,12 @@ LRESULT MainWindow::WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 			Window->UpdateWindowSize();
 		}
 		break;
+	case WM_KEYDOWN:
+		if (Window != nullptr)
+		{
+			Window->KeyPressed(wParam);
+		}
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

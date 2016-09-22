@@ -5,6 +5,7 @@
 #include "Mesh.h"
 
 class GraphicsContext;
+class Kienct;
 
 class DepthMesh
 {
@@ -15,13 +16,17 @@ public:
 
 	RenderContext::ObjectList GetRenderObjectList() const;
 
+	void KeyPressedCallback(_In_ const WPARAM & VirtualKey);
+
 private:
 	Mesh PlaneMesh;
 	TransformList Instances;
 
 	Mesh::VertexList VertexCache;
 
-	void DepthVerticesUpdatedCallback(_In_ const Kinect::CameraSpacePointList & DepthVertices);
+	bool ColorizeDepth;
 
+	void OffsetUpdatedCallback(_In_ const Vector3 & Offset);
+	void DepthVerticesUpdatedCallback(_In_ const Kinect::CameraSpacePointList & DepthVertices);
 };
 

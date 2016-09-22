@@ -14,6 +14,9 @@ AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
 	,DCamera(Vector3(0.0f, 0.0f, 50.0f))
 	,FCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
 {
+	Window.KeyPressed += std::make_pair(&Kinect, &Kinect::KeyPressedCallback);
+	Window.KeyPressed += std::make_pair(&DepthMesh, &DepthMesh::KeyPressedCallback);
+
 	float MonitorHeight = SettingsFile::Monitor::GetMonitorHeight();
 	float MonitorHalfHeight = MonitorHeight / 2.f;
 

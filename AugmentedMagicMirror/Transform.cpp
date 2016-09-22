@@ -15,6 +15,12 @@ const DirectX::XMFLOAT4X4 & Transform::GetMatrix() const
 	return Matrix;
 }
 
+void Transform::UpdatePosition(Vector3 NewPosition)
+{
+	Position = NewPosition;
+	UpdateMatrix();
+}
+
 void Transform::UpdateMatrix()
 {
 	DirectX::XMStoreFloat4x4(&Matrix, DirectX::XMMatrixTranspose(DirectX::XMMatrixScalingFromVector(Scale) * DirectX::XMMatrixRotationQuaternion(Rotation) * DirectX::XMMatrixTranslationFromVector(Position)));

@@ -19,8 +19,11 @@ public:
 	const Vector3 & GetOffset() const;
 	float GetRealWorldToVirutalScale() const;
 
+	Callback<Vector3> OffsetUpdated;
 	Callback<CameraSpacePointList, Vector3, float> FaceModelUpdated;
 	Callback<CameraSpacePointList> DepthVerticesUpdated;
+
+	void KeyPressedCallback(_In_ const WPARAM & VirtualKey);
 	
 private:
 	typedef void(Kinect::*EventCallback)(WAITABLE_HANDLE EventHandle);
@@ -28,7 +31,7 @@ private:
 	typedef std::vector<Event> EventList;
 	typedef std::vector<Microsoft::WRL::ComPtr<IBody>> BodyVector;
 
-	const Vector3 Offset;
+	Vector3 Offset;
 	const float RealWorldToVirutalScale;
 
 	Microsoft::WRL::ComPtr<IKinectSensor> KinectSensor;

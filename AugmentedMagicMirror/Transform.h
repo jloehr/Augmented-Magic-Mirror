@@ -11,6 +11,8 @@ public:
 	
 	const DirectX::XMFLOAT4X4 & GetMatrix() const;
 
+	void UpdatePosition(_In_ Vector3 NewPosition);
+
 private:
 	DirectX::XMFLOAT4X4 Matrix;
 

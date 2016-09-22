@@ -49,6 +49,37 @@ float Kinect::GetRealWorldToVirutalScale() const
 	return RealWorldToVirutalScale;
 }
 
+void Kinect::KeyPressedCallback(const WPARAM & VirtualKey)
+{
+	constexpr float Step = 0.25f;
+
+	switch (VirtualKey)
+	{
+	case 'W':
+		Offset.Y += Step;
+		break;
+	case 'S':
+		Offset.Y -= Step;
+		break;
+	case 'A':
+		Offset.X -= Step;
+		break;
+	case 'D':
+		Offset.X += Step;
+		break;
+	case 'Q':
+		Offset.Z -= Step;
+		break;
+	case 'E':
+		Offset.Z += Step;
+		break;
+	default:
+		return;
+	}
+
+	OffsetUpdated(Offset);
+}
+
 void Kinect::SetupBodyFrameReader()
 {
 	Utility::ThrowOnFail(KinectSensor->get_BodyFrameSource(&BodyFrameSource));
