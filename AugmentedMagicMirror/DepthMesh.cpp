@@ -49,7 +49,9 @@ void DepthMesh::DepthVerticesUpdatedCallback(_In_ const Kinect::CameraSpacePoint
 
 	std::transform(DepthVertices.begin(), DepthVertices.end(), VertexCache.begin(), [ColorizeDepth = this->ColorizeDepth](auto Vertex)
 	{ 
-		float Value = (!ColorizeDepth) ?  0.0f : std::fmaxf(0.f, std::fminf(1.f, 1.0f - (Vertex.Z - 0.7f) / 1.3f));
+		constexpr float MinDist = 0.7f;
+		constexpr float MaxDist = 3.0f;
+		float Value = (!ColorizeDepth) ?  0.0f : std::fmaxf(0.f, std::fminf(1.f, 1.0f - (Vertex.Z - MinDist) / (MaxDist - MinDist)));
 		return Mesh::Vertex({ { Vertex.X, Vertex.Y, Vertex.Z },{ 0.0f, 0.0f, Value, 0.0f } });
 	});
 
