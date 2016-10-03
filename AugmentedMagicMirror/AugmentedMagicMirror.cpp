@@ -19,23 +19,25 @@ AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
 
 	float MonitorHeight = SettingsFile::Monitor::GetMonitorHeight();
 	float MonitorHalfHeight = MonitorHeight / 2.f;
+	constexpr float ElementsDistance = -180.f;
+	constexpr float ElementsLength = 50.f;
 
 	Cubes = {
-		Transform(Vector3(-MonitorHalfHeight,-MonitorHalfHeight,-100.f),		 Quaternion(),                   Vector3(2.f)),
-		Transform(Vector3(-MonitorHalfHeight, MonitorHalfHeight,-100.f),		 Quaternion(90.f,   0.f,  0.f), Vector3(2.f)),
-		Transform(Vector3(MonitorHalfHeight,-MonitorHalfHeight,-100.f),		 Quaternion(90.f,  90.f,  0.f), Vector3(2.f)),
-		Transform(Vector3(MonitorHalfHeight, MonitorHalfHeight,-100.f),		 Quaternion(180.f,  90.f,  0.f), Vector3(2.f)),
-		Transform(Vector3(-MonitorHalfHeight,-MonitorHalfHeight,-200.f), Quaternion(0.f,   0.f,  0.f), Vector3(2.f)),
-		Transform(Vector3(-MonitorHalfHeight, MonitorHalfHeight,-200.f), Quaternion(0.f,   0.f,  0.f), Vector3(2.f)),
-		Transform(Vector3(MonitorHalfHeight,-MonitorHalfHeight,-200.f), Quaternion(0.f,  90.f,  0.f), Vector3(2.f)),
-		Transform(Vector3(MonitorHalfHeight, MonitorHalfHeight,-200.f), Quaternion(180.f,  90.f,  0.f), Vector3(2.f)),
-		Transform(Vector3(-MonitorHalfHeight,-MonitorHalfHeight,-150.f), Quaternion(), Vector3(1.0f, 1.0f, 100.f - 2.0f)),
-		Transform(Vector3(-MonitorHalfHeight, MonitorHalfHeight,-150.f), Quaternion(), Vector3(1.0f, 1.0f, 100.f - 2.0f)),
-		Transform(Vector3(MonitorHalfHeight,-MonitorHalfHeight,-150.f), Quaternion(), Vector3(1.0f, 1.0f, 100.f - 2.0f)),
-		Transform(Vector3(MonitorHalfHeight, MonitorHalfHeight,-150.f), Quaternion(), Vector3(1.0f, 1.0f, 100.f - 2.0f)),
-		Transform(Vector3(30.f, 0.0f, -140.0f), Quaternion(0.f,   0.f,  0.f), Vector3(7.5f)),
-		Transform(Vector3(-30.f, 0.0f, -140.0f), Quaternion(0.f, -45.f,  0.f), Vector3(5.0f))//,
-		//(Vector3(0.f, 0.0f, -80.0f), Quaternion(0.f, -45.f,  180.f), Vector3(10.0f))
+		Transform(Vector3(-MonitorHalfHeight,-MonitorHalfHeight, ElementsDistance - ElementsLength),		 Quaternion(),                   Vector3(2.f)),
+		Transform(Vector3(-MonitorHalfHeight, MonitorHalfHeight,ElementsDistance - ElementsLength),		 Quaternion(90.f,   0.f,  0.f), Vector3(2.f)),
+		Transform(Vector3(MonitorHalfHeight,-MonitorHalfHeight, ElementsDistance - ElementsLength),		 Quaternion(90.f,  90.f,  0.f), Vector3(2.f)),
+		Transform(Vector3(MonitorHalfHeight, MonitorHalfHeight, ElementsDistance - ElementsLength),		 Quaternion(180.f,  90.f,  0.f), Vector3(2.f)),
+		Transform(Vector3(-MonitorHalfHeight,-MonitorHalfHeight, ElementsDistance + ElementsLength), Quaternion(0.f,   0.f,  0.f), Vector3(2.f)),
+		Transform(Vector3(-MonitorHalfHeight, MonitorHalfHeight,ElementsDistance + ElementsLength), Quaternion(0.f,   0.f,  0.f), Vector3(2.f)),
+		Transform(Vector3(MonitorHalfHeight,-MonitorHalfHeight, ElementsDistance + ElementsLength), Quaternion(0.f,  90.f,  0.f), Vector3(2.f)),
+		Transform(Vector3(MonitorHalfHeight, MonitorHalfHeight, ElementsDistance + ElementsLength), Quaternion(180.f,  90.f,  0.f), Vector3(2.f)),
+		Transform(Vector3(-MonitorHalfHeight,-MonitorHalfHeight, ElementsDistance), Quaternion(), Vector3(1.0f, 1.0f, (2 * ElementsLength) - 2.0f)),
+		Transform(Vector3(-MonitorHalfHeight, MonitorHalfHeight, ElementsDistance), Quaternion(), Vector3(1.0f, 1.0f, (2 * ElementsLength) - 2.0f)),
+		Transform(Vector3(MonitorHalfHeight,-MonitorHalfHeight, ElementsDistance), Quaternion(), Vector3(1.0f, 1.0f, (2 * ElementsLength) - 2.0f)),
+		Transform(Vector3(MonitorHalfHeight, MonitorHalfHeight, ElementsDistance), Quaternion(), Vector3(1.0f, 1.0f, (2 * ElementsLength) - 2.0f)),
+		Transform(Vector3(30.f, 0.0f, ElementsDistance), Quaternion(0.f,   0.f,  0.f), Vector3(7.5f)),
+		Transform(Vector3(-30.f, 0.0f, ElementsDistance), Quaternion(0.f, -45.f,  0.f), Vector3(5.0f)),
+		Transform(Vector3(0.f, -10.0f, -100.0f), Quaternion(0.f, -45.f,  180.f), Vector3(5.0f))
 	};
 }
 
