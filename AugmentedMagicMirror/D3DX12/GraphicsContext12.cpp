@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "GraphicsContext.h"
+#include "GraphicsContext12.h"
 /*
 void GraphicsContext::Initialize()
 {
