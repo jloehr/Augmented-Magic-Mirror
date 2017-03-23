@@ -15,6 +15,8 @@ public:
 	RenderContext(_In_ Window & TargetWindow, _In_ Camera & Camera);
 	virtual ~RenderContext() = default;
 
+	virtual void Initialize() = 0;
+
 	typedef std::pair<const Mesh &, const TransformList &> ObjectList;
 	typedef std::vector<ObjectList> MeshList;
 	virtual void Render(_In_ MeshList DrawCalls) = 0;

@@ -101,38 +101,38 @@
     <ClInclude Include="DepthMesh.h">
       <Filter>Header Files\Kinect</Filter>
     </ClInclude>
-    <ClInclude Include="D3DX12\d3dx12.h">
-      <Filter>Header Files\Graphics\D3DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DX12\GPUFence.h">
-      <Filter>Header Files\Graphics\D3DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DX12\RenderingContext.h">
-      <Filter>Header Files\Graphics\D3DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DX12\RenderTarget.h">
-      <Filter>Header Files\Graphics\D3DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DX12\stdafx12.h">
-      <Filter>Header Files\Graphics\D3DX12</Filter>
-    </ClInclude>
     <ClInclude Include="RenderContext.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsContext.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="D3DX12\GraphicsContext12.h">
-      <Filter>Header Files\Graphics\D3DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DX12\RenderContext12.h">
-      <Filter>Header Files\Graphics\D3DX12</Filter>
-    </ClInclude>
-    <ClInclude Include="D3DX12\Mesh12.h">
-      <Filter>Header Files\Graphics\D3DX12</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dx12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="GPUFence12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsContext12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderContext12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingContext12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTarget12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,32 +178,32 @@
     <ClCompile Include="DepthMesh.cpp">
       <Filter>Source Files\Kinect</Filter>
     </ClCompile>
-    <ClCompile Include="D3DX12\GPUFence.cpp">
-      <Filter>Source Files\Graphics\D3DX12</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DX12\RenderingContext.cpp">
-      <Filter>Source Files\Graphics\D3DX12</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DX12\RenderTarget.cpp">
-      <Filter>Source Files\Graphics\D3DX12</Filter>
-    </ClCompile>
     <ClCompile Include="RenderContext.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="GraphicsContext.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="D3DX12\GraphicsContext12.cpp">
-      <Filter>Source Files\Graphics\D3DX12</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DX12\RenderContext12.cpp">
-      <Filter>Source Files\Graphics\D3DX12</Filter>
-    </ClCompile>
-    <ClCompile Include="D3DX12\Mesh12.cpp">
-      <Filter>Source Files\Graphics\D3DX12</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GPUFence12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsContext12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderContext12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingContext12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

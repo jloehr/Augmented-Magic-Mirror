@@ -8,6 +8,7 @@
 
 AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
 	:Instance(Instance), Window(), GraphicsDevice(CreateGraphicsContext())
+	,RenderContext(GraphicsDevice->CreateRenderContext(Window, FCamera))
 	,Kinect(SettingsFile::Kinect::GetKinectOffset())
 	,HeadTracker(FCamera, Kinect), DepthMesh(*GraphicsDevice)
 	,CubeMesh(GraphicsDevice->CreateMesh())
@@ -69,7 +70,7 @@ void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
 	Window.Create(Instance);
 	
 	GraphicsDevice->Initialize();
-	RenderContext = GraphicsDevice->CreateRenderContext(Window, FCamera);
+	RenderContext->Initialize();
 	CubeMesh->CreateCube();
 	Kinect.Initialize();
 	DepthMesh.Create(Kinect);

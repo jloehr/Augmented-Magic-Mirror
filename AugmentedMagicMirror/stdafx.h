@@ -5,6 +5,12 @@
 
 #pragma once
 
+//#define USE_D3DX11
+
+#ifndef USE_D3DX11
+#define USE_D3DX12
+#endif // !USE_D3DX11
+
 #include "targetver.h"
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
@@ -12,9 +18,14 @@
 #include <Windowsx.h>
 #include <wrl.h>
 
-#include <dxgi1_4.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
+#ifdef USE_D3DX11
+#endif // USE_D3DX11
+#ifdef USE_D3DX12
+#include "stdafx12.h"
+#endif // USE_D3DX12
+
 
 #include <Kinect.h>
 #include <Kinect.Face.h>
