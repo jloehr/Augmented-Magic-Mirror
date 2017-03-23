@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 class GraphicsContext;
 class Camera;
 
@@ -25,4 +25,4 @@ private:
 	void CreateRootSignature();
 	void CreatePipelineState();
 };
-
+*/

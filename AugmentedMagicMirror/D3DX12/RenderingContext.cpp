@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "RenderingContext.h"
-
+/*
 #include "Resource.h"
 #include "GraphicsContext.h"
 #include "Camera.h"
@@ -108,3 +108,4 @@ void RenderingContext::CreatePipelineState()
 
 	Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateGraphicsPipelineState(&PipelineStateDesc, IID_PPV_ARGS(&PipelineState)));
 }
+*/

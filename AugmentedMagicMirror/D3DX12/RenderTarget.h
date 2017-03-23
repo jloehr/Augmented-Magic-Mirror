@@ -1,7 +1,5 @@
 #pragma once
-
-#include "GPUFence.h"
-
+/*
 class RenderTarget
 {
 public:
@@ -29,3 +27,4 @@ private:
 
 	void InitializeTransitionBarrier(_Inout_ CD3DX12_RESOURCE_BARRIER & Barrier, _In_ D3D12_RESOURCE_STATES StateBefore, _In_ D3D12_RESOURCE_STATES StateAfter);
 };
+*/

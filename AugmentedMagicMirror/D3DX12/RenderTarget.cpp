@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "RenderTarget.h"
-
+/*
 #include "GraphicsContext.h"
 #include "Utility.h"
 
@@ -71,3 +71,4 @@ void RenderTarget::InitializeTransitionBarrier(_Inout_ CD3DX12_RESOURCE_BARRIER 
 {
 	Barrier = CD3DX12_RESOURCE_BARRIER::Transition(RenderTargetView.Get(), StateBefore, StateAfter);
 }
+*/

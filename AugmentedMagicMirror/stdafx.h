@@ -12,11 +12,9 @@
 #include <Windowsx.h>
 #include <wrl.h>
 
-#include <d3d12.h>
 #include <dxgi1_4.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
-#include "d3dx12.h"
 
 #include <Kinect.h>
 #include <Kinect.Face.h>

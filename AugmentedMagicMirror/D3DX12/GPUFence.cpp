@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "GPUFence.h"
-
+/*
 GPUFence::GPUFence()
 	:FenceEvent(nullptr)
 {
@@ -54,4 +54,4 @@ bool GPUFence::IsBusy() const
 {
 	return (Fence->GetCompletedValue() == BusyValue);
 }
-
+*/

@@ -176,21 +176,25 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="d3dx12.h" />
+    <ClInclude Include="D3DX12\d3dx12.h" />
+    <ClInclude Include="D3DX12\GPUFence.h" />
+    <ClInclude Include="D3DX12\GraphicsContext12.h" />
+    <ClInclude Include="D3DX12\Mesh12.h" />
+    <ClInclude Include="D3DX12\RenderContext12.h" />
+    <ClInclude Include="D3DX12\RenderingContext.h" />
+    <ClInclude Include="D3DX12\RenderTarget.h" />
+    <ClInclude Include="D3DX12\stdafx12.h" />
     <ClInclude Include="DepthMesh.h" />
     <ClInclude Include="DirectionalFoVCamera.h" />
     <ClInclude Include="Callback.h" />
     <ClInclude Include="FrameCamera.h" />
-    <ClInclude Include="GPUFence.h" />
-    <ClInclude Include="GraphicsContext.h" />
     <ClInclude Include="HeadTracker.h" />
     <ClInclude Include="AugmentedMagicMirror.h" />
-    <ClInclude Include="Kinect.h" />
-    <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="GraphicsContext.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="RenderContext.h" />
-    <ClInclude Include="RenderingContext.h" />
-    <ClInclude Include="RenderTarget.h" />
+    <ClInclude Include="Kinect.h" />
+    <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SettingsFile.h" />
     <ClInclude Include="stdafx.h" />
@@ -201,20 +205,23 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="D3DX12\GPUFence.cpp" />
+    <ClCompile Include="D3DX12\GraphicsContext12.cpp" />
+    <ClCompile Include="D3DX12\Mesh12.cpp" />
+    <ClCompile Include="D3DX12\RenderContext12.cpp" />
+    <ClCompile Include="D3DX12\RenderingContext.cpp" />
+    <ClCompile Include="D3DX12\RenderTarget.cpp" />
     <ClCompile Include="DepthMesh.cpp" />
     <ClCompile Include="DirectionalFoVCamera.cpp" />
     <ClCompile Include="FrameCamera.cpp" />
-    <ClCompile Include="GPUFence.cpp" />
-    <ClCompile Include="GraphicsContext.cpp" />
     <ClCompile Include="HeadTracker.cpp" />
     <ClCompile Include="AugmentedMagicMirror.cpp" />
+    <ClCompile Include="GraphicsContext.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="RenderContext.cpp" />
     <ClCompile Include="Kinect.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="RenderContext.cpp" />
-    <ClCompile Include="RenderingContext.cpp" />
-    <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="SettingsFile.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
