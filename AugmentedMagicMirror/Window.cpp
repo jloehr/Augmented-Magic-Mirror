@@ -4,8 +4,6 @@
 #include "stdafx.h"
 #include "Window.h"
 
-#include "RenderContext.h"
-
 Window::Window()
 	:WindowHandle(nullptr)
 {
