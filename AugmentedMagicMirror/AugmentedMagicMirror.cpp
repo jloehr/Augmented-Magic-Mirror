@@ -7,7 +7,7 @@
 #include "SettingsFile.h"
 
 AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
-	:Instance(Instance), Window(RenderContext), RenderContext(GraphicsDevice, Window, FCamera)
+	:Instance(Instance), Window(), RenderContext(GraphicsDevice, Window, FCamera)
 	,Kinect(SettingsFile::Kinect::GetKinectOffset())
 	,HeadTracker(FCamera, Kinect), DepthMesh(GraphicsDevice)
 	,RenderingContext(GraphicsDevice), CubeMesh(GraphicsDevice)

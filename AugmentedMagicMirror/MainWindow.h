@@ -5,7 +5,7 @@
 class MainWindow : public Window
 {
 public:
-	MainWindow(_In_ RenderContext & WindowRenderer);
+	MainWindow();
 
 private:
 	static const std::wstring WindowClassName;

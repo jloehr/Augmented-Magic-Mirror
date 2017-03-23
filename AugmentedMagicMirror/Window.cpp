@@ -6,8 +6,8 @@
 
 #include "RenderContext.h"
 
-Window::Window(_In_ RenderContext & WindowRenderer)
-	:WindowHandle(nullptr), WindowRenderer(WindowRenderer)
+Window::Window()
+	:WindowHandle(nullptr)
 {
 }
 
@@ -71,7 +71,7 @@ void Window::UpdateWindowSize()
 	if (NewSize != Size)
 	{
 		Size = NewSize;
-		WindowRenderer.OnWindowSizeChange(Size);
+		WindowResized(Size);
 	}
 }
 

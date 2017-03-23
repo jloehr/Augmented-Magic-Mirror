@@ -9,7 +9,7 @@ class Window
 public:
 	typedef std::pair<ULONG, ULONG> WindowSize;
 
-	Window(_In_ RenderContext & WindowRenderer);
+	Window();
 
 	void Create(_In_ HINSTANCE Instance);
 	void Show(_In_ int CmdShow);
@@ -18,11 +18,11 @@ public:
 	const WindowSize & GetWindowSize() const;
 
 	Callback<WPARAM> KeyPressed;
+	Callback<WindowSize> WindowResized;
 
 protected:
 	HWND WindowHandle;
 	WindowSize Size;
-	RenderContext & WindowRenderer;
 
 	WindowSize QueryWindowSize();
 	void UpdateWindowSize();
