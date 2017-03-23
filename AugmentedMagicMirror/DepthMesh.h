@@ -1,11 +1,11 @@
 #pragma once
 
-#include "RenderContext.h"
 #include "Kinect.h"
 #include "Mesh.h"
+#include "RenderContext.h"
+#include "Transform.h"
 
 class GraphicsContext;
-class Kienct;
 
 class DepthMesh
 {
@@ -19,7 +19,7 @@ public:
 	void KeyPressedCallback(_In_ const WPARAM & VirtualKey);
 
 private:
-	Mesh PlaneMesh;
+	PMesh PlaneMesh;
 	TransformList Instances;
 
 	Mesh::VertexList VertexCache;

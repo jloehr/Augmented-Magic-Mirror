@@ -10,7 +10,6 @@
 #include "DirectionalFoVCamera.h"
 #include "FrameCamera.h"
 
-#include "RenderingContext.h"
 #include "Mesh.h"
 #include "Transform.h"
 
@@ -25,8 +24,8 @@ private:
 	HINSTANCE Instance;
 
 	MainWindow Window;
-	GraphicsContext GraphicsDevice;
-	RenderContext RenderContext;
+	PGraphicsContext GraphicsDevice;
+	PRenderContext RenderContext;
 	Kinect Kinect;
 	HeadTracker HeadTracker;
 	DepthMesh DepthMesh;
@@ -34,8 +33,7 @@ private:
 	DirectionalFoVCamera DCamera;
 	FrameCamera FCamera;
 
-	RenderingContext RenderingContext;
-	Mesh CubeMesh;
+	PMesh CubeMesh;
 	TransformList Cubes;
 
 	void Initialize(_In_ int CmdShow);

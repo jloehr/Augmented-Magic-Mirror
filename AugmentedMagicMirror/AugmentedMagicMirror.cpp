@@ -7,10 +7,10 @@
 #include "SettingsFile.h"
 
 AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
-	:Instance(Instance), Window(), RenderContext(GraphicsDevice, Window, FCamera)
+	:Instance(Instance), Window(), GraphicsDevice(CreateGraphicsContext())
 	,Kinect(SettingsFile::Kinect::GetKinectOffset())
-	,HeadTracker(FCamera, Kinect), DepthMesh(GraphicsDevice)
-	,RenderingContext(GraphicsDevice), CubeMesh(GraphicsDevice)
+	,HeadTracker(FCamera, Kinect), DepthMesh(*GraphicsDevice)
+	,CubeMesh(GraphicsDevice->CreateMesh())
 	,DCamera(Vector3(0.0f, 0.0f, 50.0f))
 	,FCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
 {
@@ -55,7 +55,7 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 		}
 
 		Kinect.Update();
-		RenderContext.Render({ RenderContext::RenderParameter(RenderingContext, { RenderContext::ObjectList(CubeMesh, Cubes), DepthMesh.GetRenderObjectList() }) });
+		RenderContext->Render({ RenderContext::ObjectList(*CubeMesh, Cubes), DepthMesh.GetRenderObjectList() });
 
 	} while (Message.message != WM_QUIT);
 
@@ -67,12 +67,10 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
 {
 	Window.Create(Instance);
-
-	GraphicsDevice.Initialize();
-	RenderContext.Initialize();
-	RenderingContext.Create();
-	CubeMesh.CreateCube();
-
+	
+	GraphicsDevice->Initialize();
+	RenderContext = GraphicsDevice->CreateRenderContext(Window, FCamera);
+	CubeMesh->CreateCube();
 	Kinect.Initialize();
 	DepthMesh.Create(Kinect);
 
@@ -81,6 +79,6 @@ void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
 
 void AugmentedMagicMirror::Release()
 {
-	GraphicsDevice.Release(); 
+	GraphicsDevice->Release(); 
 	Kinect.Release();
 }

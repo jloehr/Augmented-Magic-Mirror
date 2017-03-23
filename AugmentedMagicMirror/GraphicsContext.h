@@ -1,30 +1,26 @@
 #pragma once
 
-#include "GPUFence.h"
+#include "RenderContext.h"
+#include "Mesh.h"
+
+class Window;
+class Camera;
+
+class GraphicsContext;
+typedef std::unique_ptr<GraphicsContext> PGraphicsContext;
+
+PGraphicsContext CreateGraphicsContext();
+
 
 class GraphicsContext
 {
 public:
-	void Initialize();
-	void Release();
+	virtual ~GraphicsContext() = default; 
 
-	Microsoft::WRL::ComPtr<IDXGIFactory4> & GetFactory();
-	Microsoft::WRL::ComPtr<ID3D12Device> & GetDevice();
-	Microsoft::WRL::ComPtr<ID3D12CommandQueue> & GetCommandQueue();
+	virtual void Initialize() = 0;
+	virtual void Release() = 0;
 
-	void ExecuteCommandList(const Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList) const;
-	static void ExecuteCommandList(const Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> & CommandList, const Microsoft::WRL::ComPtr<ID3D12CommandQueue> & CommandQueue);
-
-private:
-	Microsoft::WRL::ComPtr<IDXGIFactory4> Factory;
-	Microsoft::WRL::ComPtr<ID3D12Device> Device;
-	Microsoft::WRL::ComPtr<ID3D12CommandQueue> CommandQueue;
-
-	GPUFence Fence;
-
-	void EnableDebugLayer();
-	void CreateFactory();
-	void CreateDevice();
-	void CreateCommandQueue();
+	virtual PRenderContext CreateRenderContext(_In_ Window & TargetWindow, _In_ Camera & Camera) = 0;
+	virtual PMesh CreateMesh() = 0;
 };
 

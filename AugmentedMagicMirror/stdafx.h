@@ -20,10 +20,11 @@
 #include <Kinect.Face.h>
 
 #include <algorithm>
+#include <array>
 #include <functional>
+#include <memory>
 #include <string>
 #include <sstream>
-#include <array>
 #include <vector>
 
 #include "Utility.h"
