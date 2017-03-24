@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#ifdef USE_D3DX12
 #include "Mesh12.h"
 
 #include "GraphicsContext12.h"
@@ -130,3 +131,4 @@ namespace D3DX12
 		}
 	}
 }
+#endif

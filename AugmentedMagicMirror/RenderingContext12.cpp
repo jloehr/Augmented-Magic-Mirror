@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#ifdef USE_D3DX12
 #include "RenderingContext12.h"
 
 #include "GraphicsContext12.h"
@@ -112,3 +113,4 @@ namespace D3DX12
 		Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateGraphicsPipelineState(&PipelineStateDesc, IID_PPV_ARGS(&PipelineState)));
 	}
 }
+#endif

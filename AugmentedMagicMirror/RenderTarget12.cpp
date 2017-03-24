@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#ifdef USE_D3DX12
 #include "RenderTarget12.h"
 
 #include "GraphicsContext12.h"
@@ -75,3 +76,4 @@ namespace D3DX12
 		Barrier = CD3DX12_RESOURCE_BARRIER::Transition(RenderTargetView.Get(), StateBefore, StateAfter);
 	}
 }
+#endif

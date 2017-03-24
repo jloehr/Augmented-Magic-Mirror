@@ -1,7 +1,8 @@
-// GraphicsDevice.cpp : The graphics device context
+// GraphicsDevice12.cpp : The graphics device context
 //
 
 #include "stdafx.h"
+#ifdef USE_D3DX12
 #include "GraphicsContext12.h"
 
 #include "RenderContext12.h"
@@ -132,3 +133,4 @@ namespace D3DX12
 		Utility::ThrowOnFail(Device->CreateCommandQueue(&CommandQueueDesc, IID_PPV_ARGS(&CommandQueue)));
 	}
 }
+#endif

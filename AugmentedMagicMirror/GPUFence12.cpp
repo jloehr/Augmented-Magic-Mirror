@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#ifdef USE_D3DX12
 #include "GPUFence12.h"
 
 namespace D3DX12
@@ -57,3 +58,4 @@ namespace D3DX12
 		return (Fence->GetCompletedValue() == BusyValue);
 	}
 }
+#endif

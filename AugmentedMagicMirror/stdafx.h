@@ -26,6 +26,7 @@
 #include "stdafx12.h"
 #endif // USE_D3DX12
 
+#pragma comment (lib, "D3DCompiler.lib")
 
 #include <Kinect.h>
 #include <Kinect.Face.h>
