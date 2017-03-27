@@ -60,9 +60,9 @@ namespace D3DX12
 		return DefaultShader;
 	}
 
-	PRenderContext GraphicsContext::CreateRenderContext(Window & TargetWindow, Camera & Camera)
+	PRenderContext GraphicsContext::CreateRenderContext(Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera)
 	{
-		return std::make_unique<RenderContext>(*this, TargetWindow, Camera);
+		return std::make_unique<RenderContext>(*this, TargetWindow, NoseCamera, LeftEyeCamera, RighEyeCamera);
 	}
 
 	PMesh GraphicsContext::CreateMesh()

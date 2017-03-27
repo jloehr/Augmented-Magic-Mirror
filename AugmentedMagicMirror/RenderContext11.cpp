@@ -12,9 +12,10 @@
 
 namespace D3DX11
 {
-	RenderContext::RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_::Camera & Camera)
-		: ::RenderContext(TargetWindow, Camera)
+	RenderContext::RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera)
+		: ::RenderContext(TargetWindow, NoseCamera, LeftEyeCamera, RighEyeCamera)
 		, DeviceContext(DeviceContext)
+		, StereoEnabled(false)
 		, Viewport({}), ScissorRect({})
 	{
 	}
@@ -29,15 +30,44 @@ namespace D3DX11
 		TargetWindow.WindowResized += std::make_pair(this, &RenderContext::OnWindowSizeChange);
 
 		const Window::WindowSize & WindowSize = TargetWindow.GetWindowSize();
-		Camera.UpdateCamera(WindowSize);
+		UpdateCameras(WindowSize);
 		UpdateViewportAndScissorRect(WindowSize);
+
+		StereoEnabled = (DeviceContext.GetStereoHandle() != nullptr);
 
 		CreateSwapChain(WindowSize);
 		CreateRenderTargets();
 		CreateDepthStencil(WindowSize);
 	}
 
-	void RenderContext::Render(MeshList DrawCalls)
+	void RenderContext::Render(_In_ MeshList DrawCalls)
+	{
+		if (StereoEnabled)
+		{
+			RenderStereo(DrawCalls);
+		}
+		else
+		{
+			RenderEye(DrawCalls, NoseCamera, RTVLeft);
+		}
+
+		SwapChain->Present(0, 0);
+	}
+
+	void RenderContext::RenderStereo(_In_ MeshList DrawCalls)
+	{
+#ifdef USE_NVAPI
+		NvAPI_Status Status = NVAPI_OK;
+
+		Status = NvAPI_Stereo_SetActiveEye(DeviceContext.GetStereoHandle(), NVAPI_STEREO_EYE_LEFT);
+		RenderEye(DrawCalls, LeftEyeCamera, RTVLeft);
+
+		Status = NvAPI_Stereo_SetActiveEye(DeviceContext.GetStereoHandle(), NVAPI_STEREO_EYE_RIGHT);
+		RenderEye(DrawCalls, RighEyeCamera, RTVRight);
+#endif
+	}
+
+	void RenderContext::RenderEye(_In_ MeshList DrawCalls, _In_ const Camera & View, _In_ Microsoft::WRL::ComPtr<ID3D11RenderTargetView> & RTV)
 	{
 		std::array<ID3D11RenderTargetView *const, 1> RTVs = { RTV.Get() };
 		DeviceContext.GetDeviceContext()->OMSetRenderTargets(1, RTVs.data(), DSV.Get());
@@ -47,7 +77,7 @@ namespace D3DX11
 		DeviceContext.GetDeviceContext()->RSSetViewports(1, &Viewport);
 		DeviceContext.GetDeviceContext()->RSSetScissorRects(1, &ScissorRect);
 
-		DeviceContext.GetDefaultShader().Prepare(Camera);
+		DeviceContext.GetDefaultShader().Prepare(View);
 
 		for (ObjectList & ObjectsToRender : DrawCalls)
 		{
@@ -55,15 +85,15 @@ namespace D3DX11
 			Mesh11.Render(DeviceContext.GetDefaultShader(), ObjectsToRender.second);
 		}
 
-		SwapChain->Present(0, 0);
 	}
 
 	void RenderContext::OnWindowSizeChange(_In_ const Window::WindowSize & NewSize)
 	{
-		Camera.UpdateCamera(NewSize);
+		UpdateCameras(NewSize);
 		UpdateViewportAndScissorRect(NewSize);
 
-		RTV.Reset();
+		RTVLeft.Reset();
+		RTVRight.Reset();
 		DSV.Reset();
 
 		Utility::ThrowOnFail(SwapChain->ResizeBuffers(BufferFrameCount, NewSize.first, NewSize.second, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
@@ -80,6 +110,7 @@ namespace D3DX11
 		SwapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 		SwapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 		SwapChainDesc.SampleDesc.Count = 1;
+		SwapChainDesc.Stereo = StereoEnabled;
 
 		SwapChainDesc.Width = Size.first;
 		SwapChainDesc.Height = Size.second;
@@ -93,7 +124,21 @@ namespace D3DX11
 
 		SwapChain->GetBuffer(0, IID_PPV_ARGS(&BackBuffer));
 
-		Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateRenderTargetView(BackBuffer.Get(), NULL, &RTV));
+		D3D11_RENDER_TARGET_VIEW_DESC RTVDesc = {};
+		RTVDesc.Format = DXGI_FORMAT_UNKNOWN;
+		RTVDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2DARRAY;
+		RTVDesc.Texture2DArray.MipSlice = 0;
+		RTVDesc.Texture2DArray.FirstArraySlice = 0;
+		RTVDesc.Texture2DArray.ArraySize = 1;
+
+		Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateRenderTargetView(BackBuffer.Get(), &RTVDesc, &RTVLeft));
+
+		if (StereoEnabled)
+		{
+			RTVDesc.Texture2DArray.FirstArraySlice = 1;
+
+			Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateRenderTargetView(BackBuffer.Get(), &RTVDesc, &RTVRight));
+		}
 	}
 
 	void RenderContext::CreateDepthStencil(_In_ const Window::WindowSize & Size)
@@ -104,7 +149,7 @@ namespace D3DX11
 		DepthDesc.Width = Size.first;
 		DepthDesc.Height = Size.second;
 		DepthDesc.MipLevels = 1;
-		DepthDesc.ArraySize = 1;
+		DepthDesc.ArraySize = 2;
 		DepthDesc.Format = DXGI_FORMAT_D32_FLOAT;
 		DepthDesc.SampleDesc.Count = 1;
 		DepthDesc.SampleDesc.Quality = 0;
@@ -121,6 +166,13 @@ namespace D3DX11
 		DSVDesc.Texture2D.MipSlice = 0;
 
 		Utility::ThrowOnFail(DeviceContext.GetDevice()->CreateDepthStencilView(DepthStencilBuffer.Get(), &DSVDesc, &DSV)); 
+	}
+
+	void RenderContext::UpdateCameras(_In_ const Window::WindowSize & Size)
+	{
+		NoseCamera.UpdateCamera(Size);
+		LeftEyeCamera.UpdateCamera(Size);
+		RighEyeCamera.UpdateCamera(Size);
 	}
 
 	void RenderContext::UpdateViewportAndScissorRect(_In_ const Window::WindowSize & Size)

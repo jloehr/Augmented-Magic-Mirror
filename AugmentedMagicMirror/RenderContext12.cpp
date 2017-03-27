@@ -13,8 +13,8 @@
 
 namespace D3DX12
 {
-	RenderContext::RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ ::Camera & Camera)
-		: ::RenderContext(TargetWindow, Camera)
+	RenderContext::RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera)
+		: ::RenderContext(TargetWindow, NoseCamera, LeftEyeCamera, RighEyeCamera)
 		, DeviceContext(DeviceContext)
 		, Viewport(), ScissorRect()
 		, RTVDescSize(0), BufferFrameIndex(0)
@@ -39,7 +39,7 @@ namespace D3DX12
 		CreateCommandList();
 
 		const Window::WindowSize & WindowSize = TargetWindow.GetWindowSize();
-		Camera.UpdateCamera(WindowSize);
+		NoseCamera.UpdateCamera(WindowSize);
 		UpdateViewportAndScissorRect(WindowSize);
 
 		Fence.Initialize(DeviceContext.GetDevice());
@@ -200,7 +200,7 @@ namespace D3DX12
 
 		for (RenderParameter & RenderCommand : DrawCalls)
 		{
-			RenderCommand.first.Prepare(CommandList, Camera);
+			RenderCommand.first.Prepare(CommandList, NoseCamera);
 
 			for (ObjectList & ObjectsToRender : RenderCommand.second)
 			{
@@ -220,7 +220,7 @@ namespace D3DX12
 
 		ResizeBuffers(NewSize);
 		UpdateViewportAndScissorRect(NewSize);
-		Camera.UpdateCamera(NewSize);
+		NoseCamera.UpdateCamera(NewSize);
 	}
 }
 #endif

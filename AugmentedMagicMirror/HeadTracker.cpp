@@ -6,15 +6,21 @@
 
 #include "Camera.h"
 
-HeadTracker::HeadTracker(_In_ Camera & Camera, _In_ ::Kinect & Kinect)
-	:BoundCamera(Camera), Kinect(Kinect)
+HeadTracker::HeadTracker(_In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera, _In_ ::Kinect & Kinect)
+	:NoseCamera(NoseCamera), LeftEyeCamera(LeftEyeCamera), RighEyeCamera(RighEyeCamera), Kinect(Kinect)
 {
 	Kinect.FaceModelUpdated += std::make_pair(this, &HeadTracker::FaceModelUpdatedCallback);
 }
 
 void HeadTracker::FaceModelUpdatedCallback(_In_ const Kinect::CameraSpacePointList & FaceVertices, _In_ const Vector3 & Offset, _In_ const float & RealWorldToVirutalScale)
-{	
-	const CameraSpacePoint & NoseTop = FaceVertices[HighDetailFacePoints_LefteyeInnercorner]; //HighDetailFacePoints_NoseTop
+{
+	UpdateCamera(FaceVertices, Offset, RealWorldToVirutalScale, NoseCamera, HighDetailFacePoints_NoseTop);
+	UpdateCamera(FaceVertices, Offset, RealWorldToVirutalScale, LeftEyeCamera, HighDetailFacePoints_LefteyeInnercorner);
+	UpdateCamera(FaceVertices, Offset, RealWorldToVirutalScale, RighEyeCamera, HighDetailFacePoints_RighteyeInnercorner);
+}
+void HeadTracker::UpdateCamera(_In_ const Kinect::CameraSpacePointList & FaceVertices, _In_ const Vector3 & Offset, _In_ const float & RealWorldToVirutalScale, _In_ Camera & Camera, _In_ HighDetailFacePoints VertexPoint)
+{
+	const CameraSpacePoint & Vertex = FaceVertices[VertexPoint];
 
-	BoundCamera.UpdateCamera(Vector3((NoseTop.X * RealWorldToVirutalScale) + Offset.X, (NoseTop.Y * RealWorldToVirutalScale) + Offset.Y, (NoseTop.Z * RealWorldToVirutalScale) + Offset.Z));
+	Camera.UpdateCamera(Vector3((Vertex.X * RealWorldToVirutalScale) + Offset.X, (Vertex.Y * RealWorldToVirutalScale) + Offset.Y, (Vertex.Z * RealWorldToVirutalScale) + Offset.Z));
 }

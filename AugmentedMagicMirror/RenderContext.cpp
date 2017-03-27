@@ -9,7 +9,8 @@
 #include "Transform.h"
 #include "Window.h"
 
-RenderContext::RenderContext(_In_ Window & TargetWindow, _In_ ::Camera & Camera)
-	:TargetWindow(TargetWindow), Camera(Camera)
+RenderContext::RenderContext(_In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera)
+	:TargetWindow(TargetWindow)
+	, NoseCamera(NoseCamera), LeftEyeCamera(LeftEyeCamera), RighEyeCamera(RighEyeCamera)
 {
 }

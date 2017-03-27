@@ -16,7 +16,7 @@ namespace D3DX12
 	class RenderContext : public ::RenderContext
 	{
 	public:
-		RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ ::Camera & Camera);
+		RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera);
 
 		virtual void Initialize();
 

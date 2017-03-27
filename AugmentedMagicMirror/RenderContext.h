@@ -12,7 +12,7 @@ typedef std::unique_ptr<RenderContext> PRenderContext;
 class RenderContext
 {
 public:
-	RenderContext(_In_ Window & TargetWindow, _In_ Camera & Camera);
+	RenderContext(_In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera);
 	virtual ~RenderContext() = default;
 
 	virtual void Initialize() = 0;
@@ -22,6 +22,8 @@ public:
 	virtual void Render(_In_ MeshList DrawCalls) = 0;
 
 protected:
-	Window & TargetWindow;
-	Camera & Camera;
+	Window & TargetWindow; 
+	Camera & NoseCamera;
+	Camera & LeftEyeCamera;
+	Camera & RighEyeCamera;
 };

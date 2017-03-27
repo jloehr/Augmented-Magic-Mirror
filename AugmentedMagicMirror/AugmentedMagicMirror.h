@@ -30,8 +30,9 @@ private:
 	HeadTracker HeadTracker;
 	DepthMesh DepthMesh;
 
-	DirectionalFoVCamera DCamera;
-	FrameCamera FCamera;
+	FrameCamera NoseCamera;
+	FrameCamera LeftEyeCamera;
+	FrameCamera RightEyeCamera;
 
 	PMesh CubeMesh;
 	TransformList Cubes;

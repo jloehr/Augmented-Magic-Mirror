@@ -8,12 +8,13 @@
 
 AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
 	:Instance(Instance), Window(), GraphicsDevice(CreateGraphicsContext())
-	,RenderContext(GraphicsDevice->CreateRenderContext(Window, FCamera))
+	,RenderContext(GraphicsDevice->CreateRenderContext(Window, NoseCamera, LeftEyeCamera, RightEyeCamera))
 	,Kinect(SettingsFile::Kinect::GetKinectOffset())
-	,HeadTracker(FCamera, Kinect), DepthMesh(*GraphicsDevice)
+	,HeadTracker(NoseCamera, LeftEyeCamera, RightEyeCamera, Kinect), DepthMesh(*GraphicsDevice)
 	,CubeMesh(GraphicsDevice->CreateMesh())
-	,DCamera(Vector3(0.0f, 0.0f, 50.0f))
-	,FCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
+	, NoseCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
+	, LeftEyeCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
+	, RightEyeCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
 {
 	Window.KeyPressed += std::make_pair(&Kinect, &Kinect::KeyPressedCallback);
 	Window.KeyPressed += std::make_pair(&DepthMesh, &DepthMesh::KeyPressedCallback);
