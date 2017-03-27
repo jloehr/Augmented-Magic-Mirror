@@ -51,6 +51,12 @@
     <Filter Include="Source Files\Graphics\D3DX12">
       <UniqueIdentifier>{dbe55e10-74b3-48fc-af86-d83efa232bac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\D3DX11">
+      <UniqueIdentifier>{231b880a-5c46-465e-9613-034851e1c87f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\D3DX11">
+      <UniqueIdentifier>{bbc8fcc2-7e3f-4a59-9a0a-e1f3214d61da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -134,6 +140,21 @@
     <ClInclude Include="stdafx12.h">
       <Filter>Header Files\Graphics\D3DX12</Filter>
     </ClInclude>
+    <ClInclude Include="stdafx11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsContext11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderContext11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingContext11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -205,11 +226,18 @@
     <ClCompile Include="RenderTarget12.cpp">
       <Filter>Source Files\Graphics\D3DX12</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Shader.hlsl">
-      <Filter>Resources</Filter>
-    </Text>
+    <ClCompile Include="GraphicsContext11.cpp">
+      <Filter>Source Files\Graphics\D3DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderContext11.cpp">
+      <Filter>Source Files\Graphics\D3DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh11.cpp">
+      <Filter>Source Files\Graphics\D3DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingContext11.cpp">
+      <Filter>Source Files\Graphics\D3DX11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AugmentedMagicMirror.rc">
@@ -220,5 +248,13 @@
     <None Include="Settings.ini">
       <Filter>Additional Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shader11.hlsl">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="Shader12.hlsl">
+      <Filter>Resources</Filter>
+    </Text>
   </ItemGroup>
 </Project>

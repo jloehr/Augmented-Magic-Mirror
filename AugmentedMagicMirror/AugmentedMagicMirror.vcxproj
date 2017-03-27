@@ -178,11 +178,16 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="d3dx12.h" />
     <ClInclude Include="GPUFence12.h" />
+    <ClInclude Include="GraphicsContext11.h" />
     <ClInclude Include="GraphicsContext12.h" />
+    <ClInclude Include="Mesh11.h" />
     <ClInclude Include="Mesh12.h" />
+    <ClInclude Include="RenderContext11.h" />
     <ClInclude Include="RenderContext12.h" />
+    <ClInclude Include="RenderingContext11.h" />
     <ClInclude Include="RenderingContext12.h" />
     <ClInclude Include="RenderTarget12.h" />
+    <ClInclude Include="stdafx11.h" />
     <ClInclude Include="stdafx12.h" />
     <ClInclude Include="DepthMesh.h" />
     <ClInclude Include="DirectionalFoVCamera.h" />
@@ -206,9 +211,13 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GPUFence12.cpp" />
+    <ClCompile Include="GraphicsContext11.cpp" />
     <ClCompile Include="GraphicsContext12.cpp" />
+    <ClCompile Include="Mesh11.cpp" />
     <ClCompile Include="Mesh12.cpp" />
+    <ClCompile Include="RenderContext11.cpp" />
     <ClCompile Include="RenderContext12.cpp" />
+    <ClCompile Include="RenderingContext11.cpp" />
     <ClCompile Include="RenderingContext12.cpp" />
     <ClCompile Include="RenderTarget12.cpp" />
     <ClCompile Include="DepthMesh.cpp" />
@@ -234,7 +243,7 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shader.hlsl">
+    <Text Include="Shader11.hlsl">
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </EntryPointName>
       <FileType>Document</FileType>
@@ -255,6 +264,11 @@ xcopy "$(ProjectDir)Settings.ini" "$(TargetDir)" /c /y /d</Command>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </DeploymentContent>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shader12.hlsl">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

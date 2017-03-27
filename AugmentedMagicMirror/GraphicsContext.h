@@ -22,5 +22,7 @@ public:
 
 	virtual PRenderContext CreateRenderContext(_In_ Window & TargetWindow, _In_ Camera & Camera) = 0;
 	virtual PMesh CreateMesh() = 0;
+
+	static void LoadAndCompileShader(_Out_ Microsoft::WRL::ComPtr<ID3DBlob> & VertexShader, _Out_ Microsoft::WRL::ComPtr<ID3DBlob> & PixelShader, _In_ DWORD ShaderResourceId, _In_ const std::string & ShaderModel);
 };
 

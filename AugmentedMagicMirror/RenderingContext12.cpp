@@ -9,6 +9,7 @@
 
 #include "Resource.h"
 #include "Camera.h"
+#include "GraphicsContext.h"
 
 namespace D3DX12
 {
@@ -41,25 +42,6 @@ namespace D3DX12
 		CommandList->SetGraphicsRoot32BitConstants(1, Num32BitPerMatrix, &ObjectMatrix, 0);
 	}
 
-	void RenderingContext::LoadAndCompileShader(_Out_ Microsoft::WRL::ComPtr<ID3DBlob> & VertexShader, _Out_ Microsoft::WRL::ComPtr<ID3DBlob> & PixelShader)
-	{
-		Microsoft::WRL::ComPtr<ID3DBlob> Error;
-
-		HRSRC ShaderResource = FindResource(nullptr, MAKEINTRESOURCE(IDR_SHADER), RT_RCDATA);
-		HGLOBAL ShaderResourceHandle = LoadResource(nullptr, ShaderResource);
-		DWORD ContentSize = SizeofResource(nullptr, ShaderResource);
-		LPVOID Content = LockResource(ShaderResourceHandle);
-
-#if defined(_DEBUG)
-		UINT CompileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-#else
-		UINT CompileFlags = 0;
-#endif
-
-		Utility::ThrowOnFail(D3DCompile(Content, ContentSize, nullptr, nullptr, nullptr, "VShader", "vs_5_1", CompileFlags, 0, &VertexShader, &Error), Error);
-		Utility::ThrowOnFail(D3DCompile(Content, ContentSize, nullptr, nullptr, nullptr, "PShader", "ps_5_1", CompileFlags, 0, &PixelShader, &Error), Error);
-	}
-
 	void RenderingContext::CreateRootSignature()
 	{
 		std::array<CD3DX12_ROOT_PARAMETER, 2> RootParameters;
@@ -87,7 +69,7 @@ namespace D3DX12
 		Microsoft::WRL::ComPtr<ID3DBlob> VertexShader;
 		Microsoft::WRL::ComPtr<ID3DBlob> PixelShader;
 
-		LoadAndCompileShader(VertexShader, PixelShader);
+		GraphicsContext::LoadAndCompileShader(VertexShader, PixelShader, IDR_SHADER12, "5_1");
 
 		std::array<D3D12_INPUT_ELEMENT_DESC, 2> InputElementDesc
 		{ {

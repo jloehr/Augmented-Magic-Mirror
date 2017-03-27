@@ -18,8 +18,6 @@ namespace D3DX12
 	private:
 		static constexpr UINT Num32BitPerMatrix = 4 * 4;
 
-		static void LoadAndCompileShader(_Out_ Microsoft::WRL::ComPtr<ID3DBlob> & VertexShader, _Out_ Microsoft::WRL::ComPtr<ID3DBlob> & PixelShader);
-
 		GraphicsContext & DeviceContext;
 
 		Microsoft::WRL::ComPtr<ID3D12RootSignature> RootSignature;

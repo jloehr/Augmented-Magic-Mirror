@@ -5,7 +5,7 @@
 
 #pragma once
 
-//#define USE_D3DX11
+#define USE_D3DX11
 
 #ifndef USE_D3DX11
 #define USE_D3DX12
@@ -21,6 +21,7 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #ifdef USE_D3DX11
+#include "stdafx11.h"
 #endif // USE_D3DX11
 #ifdef USE_D3DX12
 #include "stdafx12.h"
