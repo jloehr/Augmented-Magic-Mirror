@@ -79,12 +79,7 @@ namespace D3DX11
 
 		Status = NvAPI_Initialize();
 		Status = NvAPI_Stereo_SetDriverMode(NVAPI_STEREO_DRIVER_MODE_DIRECT);
-		Status = NvAPI_Stereo_IsEnabled(&IsEnabled);
 
-		if (!IsEnabled)
-		{
-			Status = NvAPI_Stereo_Enable();
-		}
 #endif
 	}
 
@@ -94,7 +89,11 @@ namespace D3DX11
 		NvAPI_Status Status = NVAPI_OK;
 		NvU8 IsEnabled = 0;
 
-		Status = NvAPI_Stereo_CreateHandleFromIUnknown(Device.Get(), &StereoHandle);
+		Status = NvAPI_Stereo_IsEnabled(&IsEnabled);
+		if (IsEnabled)
+		{
+			Status = NvAPI_Stereo_CreateHandleFromIUnknown(Device.Get(), &StereoHandle);
+		}
 #endif
 	}
 
