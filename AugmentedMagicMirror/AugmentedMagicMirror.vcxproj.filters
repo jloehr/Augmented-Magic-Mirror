@@ -45,6 +45,18 @@
     <Filter Include="Additional Files">
       <UniqueIdentifier>{82d4925b-b1cb-491a-97c5-d367688fcb6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\D3DX12">
+      <UniqueIdentifier>{c279aa2b-7aef-43ee-bc41-3bdda50be368}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\D3DX12">
+      <UniqueIdentifier>{dbe55e10-74b3-48fc-af86-d83efa232bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\D3DX11">
+      <UniqueIdentifier>{231b880a-5c46-465e-9613-034851e1c87f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\D3DX11">
+      <UniqueIdentifier>{bbc8fcc2-7e3f-4a59-9a0a-e1f3214d61da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -53,20 +65,8 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RenderTarget.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GPUFence.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsContext.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="d3dx12.h">
-      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Graphics\Camera</Filter>
@@ -104,17 +104,56 @@
     <ClInclude Include="Callback.h">
       <Filter>Header Files\Utility</Filter>
     </ClInclude>
+    <ClInclude Include="DepthMesh.h">
+      <Filter>Header Files\Kinect</Filter>
+    </ClInclude>
     <ClInclude Include="RenderContext.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsContext.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="RenderingContext.h">
-      <Filter>Header Files\Graphics</Filter>
+    <ClInclude Include="d3dx12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
     </ClInclude>
-    <ClInclude Include="DepthMesh.h">
-      <Filter>Header Files\Kinect</Filter>
+    <ClInclude Include="GPUFence12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsContext12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderContext12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingContext12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTarget12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx12.h">
+      <Filter>Header Files\Graphics\D3DX12</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsContext11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderContext11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderingContext11.h">
+      <Filter>Header Files\Graphics\D3DX11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -123,15 +162,6 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderTarget.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GPUFence.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsContext.cpp">
-      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Graphics\Camera</Filter>
@@ -166,23 +196,48 @@
     <ClCompile Include="Kinect.cpp">
       <Filter>Source Files\Kinect</Filter>
     </ClCompile>
+    <ClCompile Include="DepthMesh.cpp">
+      <Filter>Source Files\Kinect</Filter>
+    </ClCompile>
     <ClCompile Include="RenderContext.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsContext.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="RenderingContext.cpp">
-      <Filter>Source Files\Graphics</Filter>
+    <ClCompile Include="GPUFence12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
     </ClCompile>
-    <ClCompile Include="DepthMesh.cpp">
-      <Filter>Source Files\Kinect</Filter>
+    <ClCompile Include="GraphicsContext12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Shader.hlsl">
-      <Filter>Resources</Filter>
-    </Text>
+    <ClCompile Include="Mesh12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderContext12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingContext12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTarget12.cpp">
+      <Filter>Source Files\Graphics\D3DX12</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsContext11.cpp">
+      <Filter>Source Files\Graphics\D3DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderContext11.cpp">
+      <Filter>Source Files\Graphics\D3DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh11.cpp">
+      <Filter>Source Files\Graphics\D3DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderingContext11.cpp">
+      <Filter>Source Files\Graphics\D3DX11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AugmentedMagicMirror.rc">
@@ -193,5 +248,13 @@
     <None Include="Settings.ini">
       <Filter>Additional Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shader11.hlsl">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="Shader12.hlsl">
+      <Filter>Resources</Filter>
+    </Text>
   </ItemGroup>
 </Project>

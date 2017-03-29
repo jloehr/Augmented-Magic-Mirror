@@ -7,12 +7,14 @@
 #include "SettingsFile.h"
 
 AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
-	:Instance(Instance), Window(RenderContext), RenderContext(GraphicsDevice, Window, FCamera)
+	:Instance(Instance), Window(), GraphicsDevice(CreateGraphicsContext())
+	,RenderContext(GraphicsDevice->CreateRenderContext(Window, NoseCamera, LeftEyeCamera, RightEyeCamera))
 	,Kinect(SettingsFile::Kinect::GetKinectOffset())
-	,HeadTracker(FCamera, Kinect), DepthMesh(GraphicsDevice)
-	,RenderingContext(GraphicsDevice), CubeMesh(GraphicsDevice)
-	,DCamera(Vector3(0.0f, 0.0f, 50.0f))
-	,FCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
+	,HeadTracker(NoseCamera, LeftEyeCamera, RightEyeCamera, Kinect), DepthMesh(*GraphicsDevice)
+	,CubeMesh(GraphicsDevice->CreateMesh())
+	, NoseCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
+	, LeftEyeCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
+	, RightEyeCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
 {
 	Window.KeyPressed += std::make_pair(&Kinect, &Kinect::KeyPressedCallback);
 	Window.KeyPressed += std::make_pair(&DepthMesh, &DepthMesh::KeyPressedCallback);
@@ -55,7 +57,7 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 		}
 
 		Kinect.Update();
-		RenderContext.Render({ RenderContext::RenderParameter(RenderingContext, { RenderContext::ObjectList(CubeMesh, Cubes), DepthMesh.GetRenderObjectList() }) });
+		RenderContext->Render({ RenderContext::ObjectList(*CubeMesh, Cubes), DepthMesh.GetRenderObjectList() });
 
 	} while (Message.message != WM_QUIT);
 
@@ -67,12 +69,10 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
 {
 	Window.Create(Instance);
-
-	GraphicsDevice.Initialize();
-	RenderContext.Initialize();
-	RenderingContext.Create();
-	CubeMesh.CreateCube();
-
+	
+	GraphicsDevice->Initialize();
+	RenderContext->Initialize();
+	CubeMesh->CreateCube();
 	Kinect.Initialize();
 	DepthMesh.Create(Kinect);
 
@@ -81,6 +81,6 @@ void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
 
 void AugmentedMagicMirror::Release()
 {
-	GraphicsDevice.Release(); 
+	GraphicsDevice->Release(); 
 	Kinect.Release();
 }
