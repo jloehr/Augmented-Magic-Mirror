@@ -27,8 +27,8 @@ void HeadTracker::FaceModelUpdatedCallback(_In_ const Kinect::CameraSpacePointLi
 		return;
 
 	UpdateCamera(FaceVertices, Offset, RealWorldToVirutalScale, NoseCamera, HighDetailFacePoints_NoseTop);
-	UpdateCamera(FaceVertices, Offset, RealWorldToVirutalScale, LeftEyeCamera, HighDetailFacePoints_LefteyeInnercorner);
-	UpdateCamera(FaceVertices, Offset, RealWorldToVirutalScale, RighEyeCamera, HighDetailFacePoints_RighteyeInnercorner);
+	UpdateCamera(FaceVertices, Offset, RealWorldToVirutalScale, LeftEyeCamera, HighDetailFacePoints_LefteyeMidtop);
+	UpdateCamera(FaceVertices, Offset, RealWorldToVirutalScale, RighEyeCamera, HighDetailFacePoints_RighteyeMidtop);
 }
 void HeadTracker::UpdateCamera(_In_ const Kinect::CameraSpacePointList & FaceVertices, _In_ const Vector3 & Offset, _In_ const float & RealWorldToVirutalScale, _In_ Camera & Camera, _In_ HighDetailFacePoints VertexPoint)
 {
