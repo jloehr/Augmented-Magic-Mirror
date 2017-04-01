@@ -18,6 +18,7 @@ namespace D3DX11
 		virtual void Render(_In_ MeshList DrawCalls);
 
 		void OnWindowSizeChange(_In_ const Window::WindowSize & NewSize);
+		void KeyPressedCallback(_In_ const WPARAM & VirtualKey);
 
 	private:
 		typedef std::array<float, 4> DXColor;
@@ -26,6 +27,7 @@ namespace D3DX11
 
 		GraphicsContext & DeviceContext;
 		bool StereoEnabled;
+		bool ForceMono;
 
 		Microsoft::WRL::ComPtr<IDXGISwapChain1> SwapChain;
 		Microsoft::WRL::ComPtr<ID3D11RenderTargetView> RTVLeft;

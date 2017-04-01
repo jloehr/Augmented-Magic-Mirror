@@ -15,7 +15,7 @@ namespace D3DX11
 	RenderContext::RenderContext(_In_ GraphicsContext & DeviceContext, _In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera)
 		: ::RenderContext(TargetWindow, NoseCamera, LeftEyeCamera, RighEyeCamera)
 		, DeviceContext(DeviceContext)
-		, StereoEnabled(false)
+		, StereoEnabled(false), ForceMono(false)
 		, Viewport({}), ScissorRect({})
 	{
 	}
@@ -28,6 +28,7 @@ namespace D3DX11
 		}
 
 		TargetWindow.WindowResized += std::make_pair(this, &RenderContext::OnWindowSizeChange);
+		TargetWindow.KeyPressed += std::make_pair(this, &RenderContext::KeyPressedCallback);
 
 		const Window::WindowSize & WindowSize = TargetWindow.GetWindowSize();
 		UpdateCameras(WindowSize);
@@ -63,7 +64,7 @@ namespace D3DX11
 		RenderEye(DrawCalls, LeftEyeCamera, RTVLeft);
 
 		Status = NvAPI_Stereo_SetActiveEye(DeviceContext.GetStereoHandle(), NVAPI_STEREO_EYE_RIGHT);
-		RenderEye(DrawCalls, RighEyeCamera, RTVRight);
+		RenderEye(DrawCalls, ForceMono ? LeftEyeCamera : RighEyeCamera, RTVRight);
 #endif
 	}
 
@@ -100,6 +101,14 @@ namespace D3DX11
 		
 		CreateRenderTargets();
 		CreateDepthStencil(NewSize);
+	}
+
+	void RenderContext::KeyPressedCallback(const WPARAM & VirtualKey)
+	{
+		if (VirtualKey == 'G' && StereoEnabled)
+		{
+			ForceMono = !ForceMono;
+		}
 	}
 
 	void RenderContext::CreateSwapChain(_In_ const Window::WindowSize & Size)
