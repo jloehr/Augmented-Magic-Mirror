@@ -17,6 +17,7 @@ AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
 	, RightEyeCamera(Vector3(0.0f, 0.0f, 50.0f), SettingsFile::Monitor::GetMonitorHeight())
 {
 	Window.KeyPressed += std::make_pair(&Kinect, &Kinect::KeyPressedCallback);
+	Window.KeyPressed += std::make_pair(&HeadTracker, &HeadTracker::KeyPressedCallback);
 	Window.KeyPressed += std::make_pair(&DepthMesh, &DepthMesh::KeyPressedCallback);
 
 	float MonitorHeight = SettingsFile::Monitor::GetMonitorHeight();
