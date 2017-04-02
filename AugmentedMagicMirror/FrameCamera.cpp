@@ -23,3 +23,14 @@ void FrameCamera::UpdateCamera()
 	DirectX::XMStoreFloat4x4(&Projection, DirectX::XMMatrixTranspose(Perspective));
 }
 
+void FrameCamera::KeyPressedCallback(const WPARAM & VirtualKey)
+{
+	switch (VirtualKey)
+	{
+	case VK_ADD:
+	case VK_SUBTRACT:
+		FrameHalfHeight += ((VirtualKey == VK_SUBTRACT) ? -1.f : 1.f) * 0.25f;
+		UpdateCamera();
+		break;
+	}
+}

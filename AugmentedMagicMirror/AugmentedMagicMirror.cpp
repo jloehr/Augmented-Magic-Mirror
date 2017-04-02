@@ -19,6 +19,9 @@ AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
 	Window.KeyPressed += std::make_pair(&Kinect, &Kinect::KeyPressedCallback);
 	Window.KeyPressed += std::make_pair(&HeadTracker, &HeadTracker::KeyPressedCallback);
 	Window.KeyPressed += std::make_pair(&DepthMesh, &DepthMesh::KeyPressedCallback);
+	Window.KeyPressed += std::make_pair(&NoseCamera, &FrameCamera::KeyPressedCallback);
+	Window.KeyPressed += std::make_pair(&LeftEyeCamera, &FrameCamera::KeyPressedCallback);
+	Window.KeyPressed += std::make_pair(&RightEyeCamera, &FrameCamera::KeyPressedCallback);
 
 	float MonitorHeight = SettingsFile::Monitor::GetMonitorHeight();
 	float MonitorHalfHeight = MonitorHeight / 2.f;

@@ -7,6 +7,8 @@ public:
 
 	virtual void UpdateCamera();
 
+	void KeyPressedCallback(const WPARAM & VirtualKey);
+
 private:
 	float FrameHalfHeight;
 };
