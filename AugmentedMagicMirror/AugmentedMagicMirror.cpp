@@ -61,7 +61,12 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 		}
 
 		Kinect.Update();
-		RenderContext->Render({ RenderContext::ObjectList(*CubeMesh, Cubes), DepthMesh.GetRenderObjectList() });
+
+		RenderContext->Render({ 
+			RenderContext::ObjectList(*CubeMesh, Cubes), 
+			/*RenderContext::ObjectList(*CubeMesh, { Transform(NoseCamera.GetPosition()),  Transform(LeftEyeCamera.GetPosition()),  Transform(RightEyeCamera.GetPosition()) }), */
+			DepthMesh.GetRenderObjectList() 
+		});
 
 	} while (Message.message != WM_QUIT);
 

@@ -34,3 +34,8 @@ const DirectX::XMFLOAT4X4 & Camera::GetProjectionMatrix() const
 {
 	return Projection;
 }
+
+const Vector3 Camera::GetPosition() const
+{
+	return Vector3(Position.X, Position.Y, -Position.Z);
+}

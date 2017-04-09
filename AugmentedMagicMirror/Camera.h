@@ -14,6 +14,8 @@ public:
 	const DirectX::XMFLOAT4X4 & GetViewMatrix() const;
 	const DirectX::XMFLOAT4X4 & GetProjectionMatrix() const;
 
+	const Vector3 GetPosition() const;
+
 protected:
 	static const Vector3 Up;
 
