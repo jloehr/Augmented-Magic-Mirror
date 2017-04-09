@@ -2,6 +2,12 @@
 
 A Magic Mirror that displays/projects 3D objects into the mirror image.
 
+## Features
+
+* DirectX 12 Renderer
+* DirectX 11 Renderer with Stereo Support
+* NVIDIA 3D Vision Support
+
 ## Requirements
 
 * Kinect v2 Sensor (including PC-Adapter)
@@ -9,11 +15,20 @@ A Magic Mirror that displays/projects 3D objects into the mirror image.
 * DirectX 11 Feature Level graphics card
 * [Microsoft Visual C++ 2015 Redistributable Update 3](https://www.microsoft.com/en-us/download/details.aspx?id=52982)
 
+_For Stereo_
+
+* 120 Hz 3D Vision Ready Display
+* DirectX 11.1 Feature Support
+
 ## Build Requirements
 
 * Visual Stduio 2015 Update 3
 * Windows 10 SDK 10.0.10586
 * Kinect SDK v2.0
+
+_For Stereo_
+
+* NVAPI in Solution Directory
 
 ## License 
 
