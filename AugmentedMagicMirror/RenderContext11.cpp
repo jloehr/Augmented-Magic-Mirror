@@ -65,6 +65,10 @@ namespace D3DX11
 
 		Status = NvAPI_Stereo_SetActiveEye(DeviceContext.GetStereoHandle(), NVAPI_STEREO_EYE_RIGHT);
 		RenderEye(DrawCalls, ForceMono ? LeftEyeCamera : RighEyeCamera, RTVRight);
+#else
+		RenderEye(DrawCalls, LeftEyeCamera, RTVLeft);
+		RenderEye(DrawCalls, ForceMono ? LeftEyeCamera : RighEyeCamera, RTVRight);
+
 #endif
 	}
 
