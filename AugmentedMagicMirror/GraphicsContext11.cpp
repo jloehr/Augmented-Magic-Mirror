@@ -17,23 +17,20 @@ namespace D3DX11
 {
 	GraphicsContext::GraphicsContext()
 		: DefaultShader(*this)
-		, StereoHandle(nullptr)
+		, StereoEnabled(false)
 	{
 	}
 
 	void GraphicsContext::Initialize()
 	{
-		InitializeNvAPI();
 		CreateFactory();
 		CreateDevice();
-		CreateStereoHandle();
 
 		DefaultShader.Create();
 	}
 
 	void GraphicsContext::Release()
 	{
-		UnloadNvAPI();
 	}
 
 	Microsoft::WRL::ComPtr<IDXGIFactory2>& GraphicsContext::GetFactory()
@@ -56,9 +53,9 @@ namespace D3DX11
 		return DefaultShader;
 	}
 
-	StereoHandle & GraphicsContext::GetStereoHandle()
+	bool GraphicsContext::IsStereoEnabled() const
 	{
-		return StereoHandle;
+		return StereoEnabled;
 	}
 
 	PRenderContext GraphicsContext::CreateRenderContext(_In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera)
@@ -69,46 +66,6 @@ namespace D3DX11
 	PMesh GraphicsContext::CreateMesh()
 	{
 		return std::make_unique<Mesh>(*this);
-	}
-
-	void GraphicsContext::InitializeNvAPI()
-	{
-#ifdef USE_NVAPI
-		NvAPI_Status Status = NVAPI_OK;
-		NvU8 IsEnabled = 0;
-
-		Status = NvAPI_Initialize();
-		Status = NvAPI_Stereo_SetDriverMode(NVAPI_STEREO_DRIVER_MODE_DIRECT);
-
-#endif
-	}
-
-	void GraphicsContext::CreateStereoHandle()
-	{
-#ifdef USE_NVAPI
-		NvAPI_Status Status = NVAPI_OK;
-		NvU8 IsEnabled = 0;
-
-		Status = NvAPI_Stereo_IsEnabled(&IsEnabled);
-		if (IsEnabled)
-		{
-			Status = NvAPI_Stereo_CreateHandleFromIUnknown(Device.Get(), &StereoHandle);
-		}
-#endif
-	}
-
-	void GraphicsContext::UnloadNvAPI()
-	{
-#ifdef USE_NVAPI
-		NvAPI_Status Status = NVAPI_OK;
-
-		if (StereoHandle != nullptr)
-		{
-			Status = NvAPI_Stereo_DestroyHandle(StereoHandle);
-		}
-
-		Status = NvAPI_Unload();
-#endif
 	}
 
 	void GraphicsContext::CreateFactory()

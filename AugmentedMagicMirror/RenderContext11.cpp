@@ -34,7 +34,7 @@ namespace D3DX11
 		UpdateCameras(WindowSize);
 		UpdateViewportAndScissorRect(WindowSize);
 
-		StereoEnabled = (DeviceContext.GetStereoHandle() != nullptr);
+		StereoEnabled = DeviceContext.IsStereoEnabled();
 
 		CreateSwapChain(WindowSize);
 		CreateRenderTargets();
@@ -57,19 +57,8 @@ namespace D3DX11
 
 	void RenderContext::RenderStereo(_In_ MeshList DrawCalls)
 	{
-#ifdef USE_NVAPI
-		NvAPI_Status Status = NVAPI_OK;
-
-		Status = NvAPI_Stereo_SetActiveEye(DeviceContext.GetStereoHandle(), NVAPI_STEREO_EYE_LEFT);
-		RenderEye(DrawCalls, LeftEyeCamera, RTVLeft);
-
-		Status = NvAPI_Stereo_SetActiveEye(DeviceContext.GetStereoHandle(), NVAPI_STEREO_EYE_RIGHT);
-		RenderEye(DrawCalls, ForceMono ? LeftEyeCamera : RighEyeCamera, RTVRight);
-#else
 		RenderEye(DrawCalls, LeftEyeCamera, RTVLeft);
 		RenderEye(DrawCalls, ForceMono ? LeftEyeCamera : RighEyeCamera, RTVRight);
-
-#endif
 	}
 
 	void RenderContext::RenderEye(_In_ MeshList DrawCalls, _In_ const Camera & View, _In_ Microsoft::WRL::ComPtr<ID3D11RenderTargetView> & RTV)

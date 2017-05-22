@@ -19,7 +19,7 @@ namespace D3DX11
 		Microsoft::WRL::ComPtr<ID3D11Device> & GetDevice();
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext> & GetDeviceContext();
 		RenderingContext & GetDefaultShader();
-		StereoHandle & GetStereoHandle();
+		bool IsStereoEnabled() const;
 
 		virtual PRenderContext CreateRenderContext(_In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera);
 		virtual PMesh CreateMesh();
@@ -30,11 +30,7 @@ namespace D3DX11
 		Microsoft::WRL::ComPtr<ID3D11DeviceContext > DeviceContext;
 
 		RenderingContext DefaultShader;
-		StereoHandle StereoHandle;
-
-		void InitializeNvAPI();
-		void CreateStereoHandle();
-		void UnloadNvAPI();
+		bool StereoEnabled;
 
 		void CreateFactory();
 		void CreateDevice();
