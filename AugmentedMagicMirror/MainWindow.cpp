@@ -51,7 +51,10 @@ LRESULT MainWindow::WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
 	case WM_SIZE:
 		if (Window != nullptr)
 		{
-			Window->UpdateWindowSize();
+			if (wParam != SIZE_MINIMIZED)
+			{
+				Window->UpdateWindowSize();
+			}
 		}
 		break;
 	case WM_KEYDOWN:
