@@ -35,3 +35,35 @@ private:
 	std::vector<CallbackFunction> Callbacks;
 };
 
+template<>
+class Callback<void>
+{
+	template <typename Class>
+	using CallbackMethod = void (Class::*)();
+
+	typedef std::function<void()> CallbackFunction;
+
+public:
+	template <typename Class>
+	void AddCallback(_In_ Class * Listener, _In_ CallbackMethod<Class> ListenerMethod)
+	{
+		Callbacks.push_back([=]() { (Listener->*ListenerMethod)(); });
+	}
+
+	template <typename Class>
+	void operator+=(_In_ std::pair<Class *, CallbackMethod<Class> > Callback)
+	{
+		AddCallback(Callback.first, Callback.second);
+	}
+
+	void operator()()
+	{
+		for (auto & Callback : Callbacks)
+		{
+			Callback();
+		}
+	}
+
+private:
+	std::vector<CallbackFunction> Callbacks;
+};
