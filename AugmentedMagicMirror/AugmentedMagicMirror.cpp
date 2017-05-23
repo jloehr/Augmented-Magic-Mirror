@@ -49,19 +49,14 @@ AugmentedMagicMirror::AugmentedMagicMirror(_In_ HINSTANCE Instance)
 
 int AugmentedMagicMirror::Run(_In_ int CmdShow)
 {
+	OptionalInt OptionalQuitMessage;
+
 	Initialize(CmdShow);
 
-	// Loop
-	MSG Message = {};
 	do {
-		while (PeekMessage(&Message, nullptr, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&Message);
-			DispatchMessage(&Message);
-		}
+		OptionalQuitMessage = ProcessMessages();
 
 		GraphicsDevice->Update();
-
 		Kinect.Update();
 
 		RenderContext->Render({ 
@@ -70,11 +65,11 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 			DepthMesh.GetRenderObjectList() 
 		});
 
-	} while (Message.message != WM_QUIT);
+	} while (!OptionalQuitMessage.first);
 
 	Release();
 
-	return static_cast<int>(Message.wParam);
+	return OptionalQuitMessage.second;
 }
 
 void AugmentedMagicMirror::Initialize(_In_ int CmdShow)
@@ -94,4 +89,23 @@ void AugmentedMagicMirror::Release()
 {
 	GraphicsDevice->Release(); 
 	Kinect.Release();
+}
+
+AugmentedMagicMirror::OptionalInt AugmentedMagicMirror::ProcessMessages()
+{
+	MSG Message = {};
+	OptionalInt Result = std::make_pair(false, 0);
+
+	while (PeekMessage(&Message, nullptr, 0, 0, PM_REMOVE))
+	{
+		TranslateMessage(&Message);
+		DispatchMessage(&Message);
+
+		if (Message.message == WM_QUIT)
+		{
+			Result = std::make_pair(true, static_cast<int>(Message.wParam));
+		}
+	}
+
+	return Result; 
 }

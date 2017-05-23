@@ -21,6 +21,8 @@ public:
 	int Run(_In_ int nCmdShow);
 
 private:
+	typedef std::pair<bool, int> OptionalInt;
+
 	HINSTANCE Instance;
 
 	MainWindow Window;
@@ -39,4 +41,6 @@ private:
 
 	void Initialize(_In_ int CmdShow);
 	void Release();
+
+	OptionalInt ProcessMessages();
 };
