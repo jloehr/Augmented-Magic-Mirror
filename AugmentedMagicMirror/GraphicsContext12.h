@@ -14,6 +14,7 @@ namespace D3DX12
 		virtual ~GraphicsContext() = default;
 
 		virtual void Initialize();
+		virtual void Update();
 		virtual void Release();
 
 		Microsoft::WRL::ComPtr<IDXGIFactory4> & GetFactory();

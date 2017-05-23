@@ -18,6 +18,7 @@ public:
 	virtual ~GraphicsContext() = default; 
 
 	virtual void Initialize() = 0;
+	virtual void Update() = 0;
 	virtual void Release() = 0;
 
 	virtual PRenderContext CreateRenderContext(_In_ Window & TargetWindow, _In_ Camera & NoseCamera, _In_ Camera & LeftEyeCamera, _In_ Camera & RighEyeCamera) = 0;

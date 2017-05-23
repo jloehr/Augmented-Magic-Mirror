@@ -34,6 +34,10 @@ namespace D3DX12
 		Fence.Initialize(Device);
 	}
 
+	void GraphicsContext::Update()
+	{
+	}
+
 	void GraphicsContext::Release()
 	{
 		// Wait until all work on the GPU is done

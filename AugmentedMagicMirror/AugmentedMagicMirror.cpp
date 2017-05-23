@@ -60,6 +60,8 @@ int AugmentedMagicMirror::Run(_In_ int CmdShow)
 			DispatchMessage(&Message);
 		}
 
+		GraphicsDevice->Update();
+
 		Kinect.Update();
 
 		RenderContext->Render({ 

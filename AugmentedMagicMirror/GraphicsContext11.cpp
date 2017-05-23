@@ -18,6 +18,8 @@ namespace D3DX11
 	GraphicsContext::GraphicsContext()
 		: DefaultShader(*this)
 		, StereoEnabled(false)
+		, StereoStatusEvent(NULL)
+		, StereoStatusEventCookie(NULL)
 	{
 	}
 
@@ -25,12 +27,20 @@ namespace D3DX11
 	{
 		CreateFactory();
 		CreateDevice();
+		RegisterStereoStatusEvent();
+		CheckStereoStatus();	
 
 		DefaultShader.Create();
 	}
 
+	void GraphicsContext::Update()
+	{
+		CheckStereoStatus();
+	}
+
 	void GraphicsContext::Release()
 	{
+		UnregisterStereoStatusEvent();
 	}
 
 	Microsoft::WRL::ComPtr<IDXGIFactory2>& GraphicsContext::GetFactory()
@@ -104,6 +114,47 @@ namespace D3DX11
 		if (Device == nullptr)
 		{
 			Utility::Throw(L"No Device was created!");
+		}
+	}
+
+	void GraphicsContext::RegisterStereoStatusEvent()
+	{
+		StereoStatusEvent = CreateEvent(nullptr, true, true, nullptr);
+		if (StereoStatusEvent != NULL)
+		{
+			Factory->RegisterStereoStatusEvent(StereoStatusEvent, &StereoStatusEventCookie);
+		}
+	}
+
+	void GraphicsContext::UnregisterStereoStatusEvent()
+	{
+		if (StereoStatusEventCookie != NULL)
+		{
+			Factory->UnregisterStereoStatus(StereoStatusEventCookie);
+		}
+
+		if (StereoStatusEvent != NULL)
+		{
+			CloseHandle(StereoStatusEvent);
+		}
+	}
+
+	void GraphicsContext::CheckStereoStatus()
+	{
+		DWORD State = WaitForSingleObject(StereoStatusEvent, 0);
+
+		if (State == WAIT_OBJECT_0)
+		{
+			ResetEvent(StereoStatusEvent);
+
+			bool NewStatus = Factory->IsWindowedStereoEnabled();
+
+			if (NewStatus != StereoEnabled)
+			{
+				StereoEnabled = NewStatus;
+				StereoStatusChanged();
+			}
+
 		}
 	}
 }
