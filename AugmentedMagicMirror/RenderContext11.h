@@ -17,6 +17,7 @@ namespace D3DX11
 
 		virtual void Render(_In_ MeshList DrawCalls);
 
+		void OnStereoStatusChanged();
 		void OnWindowSizeChange(_In_ const Window::WindowSize & NewSize);
 		void KeyPressedCallback(_In_ const WPARAM & VirtualKey);
 
@@ -36,6 +37,11 @@ namespace D3DX11
 
 		D3D11_VIEWPORT Viewport;
 		D3D11_RECT ScissorRect;
+
+		void CreateSizeDependantResources();
+		void CreateSizeDependantResources(_In_ const Window::WindowSize & Size);
+		void ReleaseSizeDependantResources(bool ReleaseSwapChain = false);
+		void UpdateStereoStatus();
 
 		void CreateSwapChain(_In_ const Window::WindowSize & Size);
 		void CreateRenderTargets();

@@ -27,18 +27,12 @@ namespace D3DX11
 			Utility::Throw(L"Window Handle is invalid!");
 		}
 
+		DeviceContext.StereoStatusChanged += std::make_pair(this, &RenderContext::OnStereoStatusChanged);
 		TargetWindow.WindowResized += std::make_pair(this, &RenderContext::OnWindowSizeChange);
 		TargetWindow.KeyPressed += std::make_pair(this, &RenderContext::KeyPressedCallback);
 
-		const Window::WindowSize & WindowSize = TargetWindow.GetWindowSize();
-		UpdateCameras(WindowSize);
-		UpdateViewportAndScissorRect(WindowSize);
-
-		StereoEnabled = DeviceContext.IsStereoEnabled();
-
-		CreateSwapChain(WindowSize);
-		CreateRenderTargets();
-		CreateDepthStencil(WindowSize);
+		UpdateStereoStatus();
+		CreateSizeDependantResources();
 	}
 
 	void RenderContext::Render(_In_ MeshList DrawCalls)
@@ -78,22 +72,25 @@ namespace D3DX11
 			const Mesh & Mesh11 = static_cast<const Mesh &>(ObjectsToRender.first);
 			Mesh11.Render(DeviceContext.GetDefaultShader(), ObjectsToRender.second);
 		}
+	}
 
+	void RenderContext::OnStereoStatusChanged()
+	{
+		ReleaseSizeDependantResources(true);
+		UpdateStereoStatus();
+		CreateSizeDependantResources();
 	}
 
 	void RenderContext::OnWindowSizeChange(_In_ const Window::WindowSize & NewSize)
 	{
-		UpdateCameras(NewSize);
-		UpdateViewportAndScissorRect(NewSize);
+		if (!SwapChain)
+			return;
 
-		RTVLeft.Reset();
-		RTVRight.Reset();
-		DSV.Reset();
+		ReleaseSizeDependantResources(false);
 
 		Utility::ThrowOnFail(SwapChain->ResizeBuffers(BufferFrameCount, NewSize.first, NewSize.second, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 		
-		CreateRenderTargets();
-		CreateDepthStencil(NewSize);
+		CreateSizeDependantResources(NewSize);
 	}
 
 	void RenderContext::KeyPressedCallback(const WPARAM & VirtualKey)
@@ -102,6 +99,44 @@ namespace D3DX11
 		{
 			ForceMono = !ForceMono;
 		}
+	}
+
+	void RenderContext::CreateSizeDependantResources()
+	{
+		const Window::WindowSize & Size = TargetWindow.GetWindowSize();
+		CreateSizeDependantResources(Size);
+	}
+
+	void RenderContext::CreateSizeDependantResources(_In_ const Window::WindowSize & Size)
+	{
+		if (!SwapChain)
+		{
+			CreateSwapChain(Size);
+		}
+
+		CreateRenderTargets();
+		CreateDepthStencil(Size);
+
+		UpdateCameras(Size);
+		UpdateViewportAndScissorRect(Size);
+	}
+
+	void RenderContext::ReleaseSizeDependantResources(bool ReleaseSwapChain)
+	{
+		RTVLeft.Reset();
+		RTVRight.Reset();
+		DSV.Reset();
+
+		if (ReleaseSwapChain)
+		{
+			SwapChain->SetFullscreenState(FALSE, nullptr);
+			SwapChain.Reset();
+		}
+	}
+
+	void RenderContext::UpdateStereoStatus()
+	{
+		StereoEnabled = DeviceContext.IsStereoEnabled();
 	}
 
 	void RenderContext::CreateSwapChain(_In_ const Window::WindowSize & Size)
