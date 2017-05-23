@@ -6,6 +6,12 @@
 
 namespace Utility
 {
+	void Log(_In_ LPCWSTR Message)
+	{
+		OutputDebugStringW(Message);
+		OutputDebugStringW(L"\n");
+	}
+
 	void Throw(_In_opt_ LPCWSTR Message)
 	{
 		if (Message != nullptr)

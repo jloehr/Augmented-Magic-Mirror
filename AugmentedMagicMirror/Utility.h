@@ -2,6 +2,7 @@
 
 namespace Utility
 {
+	void Log(_In_ LPCWSTR Message);
 	void Throw(_In_opt_ LPCWSTR Message = nullptr);
 	void ThrowOnFail(_In_ HRESULT hr, _In_opt_ LPCWSTR Message = nullptr);
 	void ThrowOnFail(_In_ HRESULT hr, _In_ Microsoft::WRL::ComPtr<ID3DBlob> & Error);
